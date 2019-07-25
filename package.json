@@ -5,7 +5,6 @@
     "scripts": {
         "test": "npm run lint && NODE_ENV=development nyc ava",
         "lint": "tslint --project tsconfig.json --fix",
-        "build": "npm run sass",
         "copy": "ncp app dist",
         "start": "nodemon --inspect=127.0.0.1:9230 app/index.js",
         "preversion": "npm run test",
@@ -91,7 +90,6 @@
         "gulp-nodemon": "^2.2.1",
         "gulp-notify": "^3.2.0",
         "gulp-nsp": "^3.0.0",
-        "gulp-sass": "^3.2.1",
         "gulp-sourcemaps": "^2.6.4",
         "isparta": "^4.0.0",
         "ncp": "^2.0.0",
