@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node www",
-    "build": "quasar build -P"
+    "start": "vue-cli-service build && node www",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -13,23 +14,37 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
-    "@quasar/extras": "^1.0.0",
-    "axios": "^0.18.1",
-    "quasar": "^1.0.0"
+    "@fortawesome/fontawesome-free": "^5.8.2",
+    "core-js": "^2.6.5",
+    "register-service-worker": "^1.6.2",
+    "roboto-fontface": "*",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vuetify": "^2.0.0",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0",
-    "@vue/eslint-config-prettier": "^4.0.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.10.0",
-    "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^5.0.0"
+    "@vue/cli-plugin-babel": "^3.9.0",
+    "@vue/cli-plugin-pwa": "^3.9.0",
+    "@vue/cli-service": "^3.9.0",
+    "sass": "^1.17.4",
+    "sass-loader": "^7.1.0",
+    "vue-cli-plugin-vuetify": "^0.6.1",
+    "vue-template-compiler": "^2.6.10",
+    "vuetify-loader": "^1.2.2",
+    "webpack": "^4.28.4"
   },
   "engines": {
     "node": ">= 8.9.0",
     "npm": ">= 5.6.0"
   },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
   "browserslist": [
-    "last 1 version, not dead, ie >= 11"
+    "> 1%",
+    "last 2 versions"
   ]
 }
