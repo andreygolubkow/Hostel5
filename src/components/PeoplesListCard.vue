@@ -30,9 +30,6 @@ export default {
     data: () => ({
   }),
     methods: {
-      viewPeople(people) {
-          this.$emit('peopleClick', people);
-      }
     }
 };
 </script>

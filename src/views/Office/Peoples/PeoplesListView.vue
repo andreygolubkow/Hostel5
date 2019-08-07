@@ -17,6 +17,7 @@
                     faculty: "ФВС",
                     group: "515-2",
                     phone: "+79961111111",
+                    rate: 0,
                     citizen: "РФ",
                     room: "301",
                     notes: [
@@ -33,6 +34,7 @@
                     phone: "+72222213314",
                     citizen: "Казахстан",
                     room: "302",
+                    rate: 0,
                     notes: [
                         "Помог с дежурством"
                     ]
