@@ -1,23 +1,50 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Index from "./views/Index";
+import Office from "./views/Office/Office";
+import Peoples from "./views/Office/Peoples/Peoples";
+import PeoplesListView from "./views/Office/Peoples/PeoplesListView";
+import PeopleView from "./views/Office/Peoples/PeopleView";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path: '',
+      component: Index
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/office/',
+      component: Office,
+      children: [
+        {
+          path: "index",
+          component: () => import("./views/Office/Index.vue")
+        },
+        {
+          path: 'peoples',
+          component: Peoples,
+          children: [
+            {
+              path: "",
+              redirect: "list"
+            },
+            {
+              path: "list",
+              component: PeoplesListView
+            },
+            {
+              path: ":id",
+              component: PeopleView
+            }
+          ]
+        },
+        {
+          path: "",
+          redirect: "index"
+        }
+      ]
     }
   ]
 })
