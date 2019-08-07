@@ -1,5 +1,5 @@
 <template>
-  <people-info-card v-bind:people="people"></people-info-card>
+  <people-info-card v-bind:people="people" v-on:changeRate="changeRate" v-on:addNote="addNote"></people-info-card>
 </template>
 
 <script>
@@ -52,6 +52,12 @@
                         }
                     ]
                 }
+            },
+            changeRate(rate) {
+                this.people.rate+=rate;
+            },
+            addNote() {
+                console.log("add note");
             }
         }
     }

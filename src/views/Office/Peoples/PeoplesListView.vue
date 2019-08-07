@@ -4,48 +4,34 @@
 
 <script>
     import PeoplesList from "../../../components/PeoplesListCard";
+    import axios from "axios";
+    import {BACKEND_URL} from "../../../backend";
 
     export default {
         name: "PeoplesListView",
         components: {PeoplesList},
         data: () => ({
-            peoples: [
-                {
-                    _id: "0",
-                    name: "Иванов Петр Михайлович",
-                    dob: "30.02.2001",
-                    faculty: "ФВС",
-                    group: "515-2",
-                    phone: "+79961111111",
-                    rate: 0,
-                    citizen: "РФ",
-                    room: "301",
-                    notes: [
-                        "Шумел",
-                        "Помог с дежурством"
-                    ]
-                },
-                {
-                    _id: "1",
-                    name: "Михайлов Владимир",
-                    dob: "01.03.2000",
-                    faculty: "РКФ",
-                    group: "515-1",
-                    phone: "+72222213314",
-                    citizen: "Казахстан",
-                    room: "302",
-                    rate: 0,
-                    notes: [
-                        "Помог с дежурством"
-                    ]
-                }
-            ]
+            peoples: []
         }),
         methods: {
             viewPeople(people) {
                 console.log(people);
+            },
+            fetchData () {
+                axios
+                    .get(`${BACKEND_URL}peoples`)
+                    .then(response => (this.peoples = response.data));
             }
-        }
+        },
+        created () {
+            // загружаем данные, когда представление создано
+            // и данные реактивно отслеживаются
+            this.fetchData()
+        },
+        watch: {
+            // при изменениях маршрута запрашиваем данные снова
+            '$route': 'fetchData'
+        },
     }
 </script>
 
