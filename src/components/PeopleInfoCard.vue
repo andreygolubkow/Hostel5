@@ -42,7 +42,7 @@
           <v-card-actions>
             <v-btn text color="green" @click="changeRate(1)">+1</v-btn>
             <v-btn text color="red" @click="changeRate(-1)">-1</v-btn>
-            <v-btn text @click="addNote()">Заметка</v-btn>
+            <v-btn text @click.stop="addNote()">Заметка</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>

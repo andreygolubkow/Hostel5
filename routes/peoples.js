@@ -82,7 +82,7 @@ router.get('/:id', function(req, res, next) {
   res.json(people);
 });
 
-/* Получим одного участника */
+/* Отравим рейтинг */
 router.post('/:id/rate', function(req, res, next) {
   if(!req.body) return res.sendStatus(400);
 
@@ -126,7 +126,7 @@ router.post('/:id/rate', function(req, res, next) {
   res.json(people);
 });
 
-/* Получим одного участника */
+/* Отправим заметку */
 router.post('/:id/notes', function(req, res, next) {
   if(!req.body) return res.sendStatus(400);
 
