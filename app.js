@@ -4,6 +4,9 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+mongoose.connect("mongodb://dev:developer1@hostelcluster-shard-00-00-h3qzz.mongodb.net:27017,hostelcluster-shard-00-01-h3qzz.mongodb.net:27017,hostelcluster-shard-00-02-h3qzz.mongodb.net:27017/test?ssl=true&replicaSet=HostelCluster-shard-0&authSource=admin&retryWrites=true&w=majority", { useNewUrlParser: true });
+
+
 var app = express();
 
 // view engine setup

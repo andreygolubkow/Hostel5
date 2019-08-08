@@ -1,6 +1,21 @@
+import {PeopleModel} from "../model/people";
+
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
+
+router.post('/', function (req, res, next) {
+  const p = new PeopleModel({
+    name: "Иванов Петр"
+  });
+
+  p.save(function(err){
+    if(err) return console.log(err);
+    console.log("Сохранен объект", p);
+  });
+
+  res.json(p);
+});
 
 /* Получим контингент */
 router.get('/', function(req, res, next) {
