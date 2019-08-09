@@ -3,15 +3,6 @@ const models = require("../models");
 var moment = require('moment');
 
 
-app.get('/api/people', function(req,res,next)
-{
-//  if(!req.user) return res.json({error: 'Not Authorized'});
-
-  models.People.find({}).then((p)=>{
-    res.json(p);
-  }).catch(next);
-});
-
 app.post('/api/people', function(req, res, next)
 {
   //if(!req.user) return res.redirect('/login');
@@ -20,6 +11,15 @@ app.post('/api/people', function(req, res, next)
     .then(()=>{
       res.json(people);
     }).catch(next);
+});
+
+app.get('/api/people', function(req,res,next)
+{
+//  if(!req.user) return res.json({error: 'Not Authorized'});
+
+  models.People.find({}).then((p)=>{
+    res.json(p);
+  }).catch(next);
 });
 
 app.get('/api/people/:id',(req, res, next)=>{
