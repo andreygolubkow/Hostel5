@@ -14,7 +14,7 @@ let app = express();
 // Время ответа
 app.use(require('./rt'));
 
-app.use(express.static(path.join(__dirname, "dist")));
+app.use('/', express.static(path.join(__dirname, "../dist")));
 app.use('/public',express.static(path.join(__dirname,'../public')));
 
 

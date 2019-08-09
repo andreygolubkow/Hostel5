@@ -110,19 +110,19 @@
         methods: {
             fetchData(id) {
                 axios
-                    .get(`${BACKEND_URL}peoples/${id}`)
+                    .get(`${BACKEND_URL}people/${id}`)
                     .then(response => (this.people = response.data));
             },
             changeRate(rate) {
                 const newRate = this.people.rate + rate;
                 axios
-                    .post(`${BACKEND_URL}peoples/${this.id}/rate`, {rate: newRate})
+                    .post(`${BACKEND_URL}people/${this.id}/rate`, {rate: newRate})
                     .then(response => (this.people = response.data));
             },
             addNote() {
                 if (this.noteText.length !== 0) {
                     axios
-                        .post(`${BACKEND_URL}peoples/${this.id}/notes`, {note: this.noteText})
+                        .post(`${BACKEND_URL}people/${this.id}/note`, {note: this.noteText})
                         .then(response => (this.people = response.data))
                         .then(t => this.closeNoteDialog());
                 }

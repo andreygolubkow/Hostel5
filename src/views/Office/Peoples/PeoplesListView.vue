@@ -19,7 +19,7 @@
             },
             fetchData () {
                 axios
-                    .get(`${BACKEND_URL}peoples`)
+                    .get(`${BACKEND_URL}people`)
                     .then(response => (this.peoples = response.data));
             }
         },

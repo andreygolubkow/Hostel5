@@ -36,12 +36,6 @@ PeopleSchema.pre('remove', function(next) {
  */
 
 PeopleSchema.methods = {
-  uploadAndSave: function() {
-    const err = this.validateSync();
-    if (err && err.toString()) throw new Error(err.toString());
-    return this.save();
-  },
-
   addNote: function(people, note) {
     this.notes.push({
       text: note.text,
