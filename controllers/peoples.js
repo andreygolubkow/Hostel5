@@ -28,9 +28,8 @@ app.get('/api/people/:id',(req, res, next)=>{
     _id:req.params.id
   }).exec().then((p)=>{
     if(!p) res.json({});
-    models.People.find({room: p.room}, (result) => {
-      p.friends = result;
-      res.json(p);
+    models.People.find({room: p.room, _id: {$ne: p._id}}, (t, result) => {
+      res.json(Object.assign({friends: result}, p._doc));
     });
   }).catch(next);
 });

@@ -117,14 +117,16 @@
                 const newRate = this.people.rate + rate;
                 axios
                     .post(`${BACKEND_URL}people/${this.id}/rate`, {rate: newRate})
-                    .then(response => (this.people = response.data));
+                    .then(response => (this.people = response.data))
+                    .then(() => this.fetchData(this.id));
             },
             addNote() {
                 if (this.noteText.length !== 0) {
                     axios
                         .post(`${BACKEND_URL}people/${this.id}/note`, {note: this.noteText})
                         .then(response => (this.people = response.data))
-                        .then(t => this.closeNoteDialog());
+                        .then(t => this.closeNoteDialog())
+                        .then(() => this.fetchData(this.id));
                 }
             },
             closeNoteDialog() {
