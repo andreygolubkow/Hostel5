@@ -1,6 +1,13 @@
 <template>
   <div>
-    <room-info-card v-bind:room="room" v-on:changeRate="changeRate" v-on:addNote="dialog = true"></room-info-card>
+    <room-info-card v-bind:room="room"
+                    v-on:changeRate="changeRate"
+                    v-on:addNote="dialog = true"
+                    v-on:peopleClick="peopleClick"
+                    >
+    </room-info-card>
+
+
     <v-dialog
       v-model="dialog"
       max-width="290"
@@ -80,6 +87,79 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="peopleDialog" fullscreen hide-overlay transition="dialog-bottom-transition" >
+      <v-card v-if="currentPeople">
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="peopleDialog = false">
+            <v-icon>fa-times</v-icon>
+          </v-btn>
+          <v-toolbar-title>{{currentPeople.name}}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  icon
+                  v-on="on"
+                >
+                  <v-icon>
+                    fa-ellipsis-v
+                  </v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item>
+                  <v-list-item-title>+1</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-title>-1</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-title>Заметка</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </v-toolbar-items>
+        </v-toolbar>
+        <v-list two-line dense>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>{{currentPeople.citizen}}</v-list-item-title>
+              <v-list-item-subtitle>{{currentPeople.dob}}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>{{currentPeople.group}}</v-list-item-title>
+              <v-list-item-subtitle>{{currentPeople.faculty}} {{currentPeople.eduForm}}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item :href="`tel:${currentPeople.phone}`">
+            <v-list-item-content>
+              <v-list-item-title><v-icon small>fa-phone</v-icon>{{` ${currentPeople.phone}`}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list two-line dense v-if="currentPeople.notes && currentPeople.notes.length>0">
+          <v-list-item two-line v-for="note in currentPeople.notes">
+            <v-list-item-content>
+              <v-list-item-title>{{note.date}}</v-list-item-title>
+              <v-list-item-subtitle>{{note.text}}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -96,7 +176,9 @@
             room: null,
             dialog: false,
             noteText: "",
-            id: -1
+            id: -1,
+            peopleDialog: false,
+            currentPeople: null
         }),
         watch: {
             '$route.params.id': {
@@ -109,6 +191,10 @@
             }
         },
         methods: {
+            peopleClick (people) {
+                this.currentPeople = people;
+                this.peopleDialog = true;
+            },
             fetchData(id) {
                 axios
                     .get(`${BACKEND_URL}room/${id}`)

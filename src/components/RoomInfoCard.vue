@@ -21,7 +21,7 @@
 
                 <v-list-item
                   :key="index"
-                  @click=""
+                  @click.stop="peopleClick(people)"
                 >
                   <v-list-item-avatar>
                     <v-img src="https://avatars.mds.yandex.net/get-pdb/2011865/d5f09e42-e045-4605-8bf2-cfe03f5aba87/s1200"></v-img>
@@ -60,6 +60,9 @@
             },
             addNote(count) {
                 this.$emit('addNote', count);
+            },
+            peopleClick (people) {
+                this.$emit('peopleClick', people);
             }
         }
     };
