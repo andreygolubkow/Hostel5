@@ -20,6 +20,9 @@
           <v-list-item to="/office/peoples">
             <v-list-item-title>Контингент</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/office/rooms">
+            <v-list-item-title>Комнаты</v-list-item-title>
+          </v-list-item>
           <v-list-item to="/office/tasks">
             <v-list-item-title>Задачи</v-list-item-title>
           </v-list-item>

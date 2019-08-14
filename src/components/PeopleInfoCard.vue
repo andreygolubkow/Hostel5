@@ -3,7 +3,11 @@
     <v-layout
       wrap >
       <v-flex xs12>
-        <b v-if="!people">Подключите people</b>
+        <v-progress-linear
+          v-if="!people"
+          indeterminate
+          color="primary"
+        ></v-progress-linear>
         <v-card v-if="people"
           class="mx-auto"
         >

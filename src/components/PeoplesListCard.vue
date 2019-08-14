@@ -3,7 +3,12 @@
     <v-layout
       wrap >
       <v-flex xs12>
-        <b v-if="!peoples">Подключите список peoples</b>
+        <v-progress-linear
+          v-if="!peoples"
+          indeterminate
+          color="primary"
+        ></v-progress-linear>
+
         <v-card v-if="peoples">
           <v-list three-line>
             <v-container v-if="!editor">
