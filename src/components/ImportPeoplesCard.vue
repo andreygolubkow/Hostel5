@@ -8,14 +8,13 @@
           <v-card-text>
             <v-file-input
               v-model="file"
-              placeholder="CSV документ"
+              placeholder="XLSX документ"
               label="Список людей">
             </v-file-input>
-            <span>Порядок полей: ФИО, Комната, Дата рождения, Факультет, Группа, Телефон, Гражданство</span>
+            <span>Поля: name, dob, faculty, group, phone, citizen, room, sex, eduForm</span>
           </v-card-text>
           <v-card-actions>
-            <v-btn text @click="parseFile">Разобрать</v-btn>
-            <v-btn text color="green">Отправить</v-btn>
+            <v-btn text @click="sendFile" color="green">Отправить</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -30,8 +29,8 @@
             file: [],
         }),
         methods: {
-            parseFile () {
-                console.log(this.file);
+            sendFile () {
+                this.$emit('sendFile', this.file);
             }
         }
     }

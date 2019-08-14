@@ -1,5 +1,6 @@
 <template>
-    <peoples-list v-bind:peoples="peoples" v-on:peopleClick="viewPeople"></peoples-list>
+    <peoples-list v-bind:peoples="peoples"
+                  v-on:trashClick="trashClick" :editor="edit"></peoples-list>
 </template>
 
 <script>
@@ -11,11 +12,17 @@
         name: "PeoplesListView",
         components: {PeoplesList},
         data: () => ({
-            peoples: []
+            peoples: [],
+            edit: false
         }),
         methods: {
             viewPeople(people) {
                 console.log(people);
+            },
+            trashClick (id) {
+                axios
+                    .delete(`${BACKEND_URL}people/${id}`)
+                    .then(response => (this.fetchData()));
             },
             fetchData: function () {
                 axios
@@ -43,7 +50,14 @@
         },
         watch: {
             // при изменениях маршрута запрашиваем данные снова
-            '$route': 'fetchData'
+            '$route': 'fetchData',
+            '$route.query.edit': {
+                handler: function(edit) {
+                    this.edit = edit;
+                },
+                deep: true,
+                immediate: true
+            }
         },
     }
 </script>

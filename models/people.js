@@ -10,6 +10,8 @@ const PeopleSchema = new mongoose.Schema(
     phone: { type: String, default: '', trim: true, maxlength: 12 },
     citizen: { type: String, default: '', trim: true, maxlength: 12 },
     room: { type: String, default: '', trim: true, maxlength: 4 },
+    sex: { type: String, default: '', trim: true, maxlength: 1 },
+    eduForm: { type: String, default: '', trim: true, maxlength: 10 },
     rate: { type: Number, default: 0, trim: true},
     notes: [
       {
