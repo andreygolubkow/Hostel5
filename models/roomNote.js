@@ -9,7 +9,7 @@ const RoomNoteSchema = new mongoose.Schema(
     room: { type: String, default: '', trim: true, maxlength: 30 },
     level: { type: Number, default: 0},
     createdAt: { type: Date, default: Date.now }
-});
+}, {timestamps: true});
 
 /**
  * Validations

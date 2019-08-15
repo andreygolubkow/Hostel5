@@ -7,5 +7,6 @@ app.use(require('./auth'));
 app.use(require('./post'));
 app.use(require('./peoples'));
 app.use(require('./rooms'));
+app.use(require('./search'));
 
 module.exports = app;

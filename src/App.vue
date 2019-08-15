@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-content style="min-width: 450px;">
       <router-view/>
     </v-content>
 </template>

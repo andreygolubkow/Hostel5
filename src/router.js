@@ -63,6 +63,7 @@ export default new Router({
             },
             {
               path: ":id",
+              name: "room-view",
               component: RoomView
             }
           ]
