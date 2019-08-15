@@ -41,7 +41,7 @@ app.post('/api/room/:room/note',(req, res, next)=>{
   let note = new models.RoomNote({
     text: req.body.text,
     room: req.params.room,
-    level: req.params.level,
+    level: req.body.level,
     date: `${moment().format("DD.MM.YYYY")}`
   });
 

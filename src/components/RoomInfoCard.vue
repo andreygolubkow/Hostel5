@@ -9,7 +9,26 @@
           class="mx-auto"
         >
           <v-card-title class="title">
-            {{room.room}}
+            <v-row justify="space-between">
+              <v-col>{{room.room}}</v-col>
+              <v-col class="text-right">
+                <v-btn
+                  icon
+                  x-small
+                  @click="leftClick"
+                >
+                  <v-icon>fa-chevron-left</v-icon>
+                </v-btn>
+
+                <v-btn
+                  @click="rightClick"
+                  icon
+                  x-small
+                >
+                  <v-icon>fa-chevron-right</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-card-title>
 
           <v-card-text>
@@ -58,6 +77,12 @@
             },
             peopleClick (people) {
                 this.$emit('peopleClick', people);
+            },
+            leftClick () {
+                this.$emit('leftClick');
+            },
+            rightClick () {
+                this.$emit('rightClick');
             }
         }
     };

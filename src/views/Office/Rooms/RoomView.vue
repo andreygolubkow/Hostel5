@@ -7,6 +7,8 @@
                     v-on:changeRate="changeRate"
                     v-on:addNote="dialog = true"
                     v-on:peopleClick="peopleClick"
+                    v-on:leftClick="leftClick"
+                    v-on:rightClick="rightClick"
                     >
     </room-info-card>
     </v-row>
@@ -17,14 +19,25 @@
             <v-container>
               <v-timeline dense clipped>
                 <v-timeline-item
-                  class="mb-4"
                   color="orange"
-                  icon-color="grey lighten-2"
-                  fill-dot
                 >
+                  <template v-slot:icon>
+                    #
+                  </template>
                   <v-row justify="space-between">
-                    <v-col cols="7">This order was archived.</v-col>
-                    <v-col class="text-right" cols="5">15:26 EDT</v-col>
+                    <v-col>
+                      <p>
+                        <v-chip-group
+                          column
+                          active-class="primary--text"
+                        >
+                          <v-chip small v-for="tag in tags" :key="tag" label :color="levelToColor(tag.level)"
+                                  @click="putNoteTemplate(tag.text, tag.level)">
+                            {{ tag.short }}
+                          </v-chip>
+                        </v-chip-group>
+                      </p>
+                    </v-col>
                   </v-row>
                 </v-timeline-item>
 
@@ -35,8 +48,8 @@
                   small
                 >
                   <v-row justify="space-between">
-                    <v-col cols="7">{{n.text}}</v-col>
-                    <v-col class="text-right" cols="5">{{n.createdAt}}</v-col>
+                    <v-col>{{n.text}}</v-col>
+                    <v-col class="text-right">{{formatTime(n.createdAt)}}</v-col>
                   </v-row>
                 </v-timeline-item>
 
@@ -57,56 +70,37 @@
       max-width="290"
     >
       <v-card>
-        <v-card-title class="headline">Заметка</v-card-title>
+        <v-card-title class="headline" :color="levelToColor(noteLevel)">
+          <b :class="`${levelToColor(this.noteLevel)}--text`">#</b>
+          Заметка
+        </v-card-title>
 
         <v-card-text>
           <v-text-field
             label="Текст заметки"
             v-model="noteText"
           ></v-text-field>
-
-        <p>
-          <v-chip
-            small
-            class="mr-2 chips-padding"
-            @click="putNoteTemplate(`Шум`, 2)"
-          >
-            Шум
-          </v-chip>
-          <v-chip
-            small
-            class="mr-2 chips-padding"
-            @click="putNoteTemplate(`Нет плитки`, 2)"
-          >
-            Нет плитки
-          </v-chip>
-          <v-chip
-            small
-            class="mr-2 chips-padding"
-            @click="putNoteTemplate(`Грязно`, 2)"
-          >
-            Грязно
-          </v-chip>
-        </p>
           <p>
-            <v-chip
-              small
-              class="mr-2 chips-padding"
-              color="orange"
-              text-color="white"
-              @click="putNoteTemplate(`Нужен Плотник`, 4)"
+            <v-chip-group
+              column
+              active-class="primary--text"
             >
-              Плотник
-            </v-chip>
-            <v-chip
-              small
-              color="orange"
-              text-color="white"
-              class="mr-2 chips-padding"
-              @click="putNoteTemplate(`Нужен Электрик`, 4)"
-            >
-              Электрик
-            </v-chip>
+              <v-chip small color="grey" label @click="noteLevel = 0">
+                Заметка
+              </v-chip>
+              <v-chip small color="teal" label @click="noteLevel = 1">
+                Важная заметка
+              </v-chip>
+              <v-chip small color="green" label @click="noteLevel = 2">
+                Сервис
+              </v-chip>
+              <v-chip small color="yellow" label @click="noteLevel = 3">
+                Нарушение
+              </v-chip>
+              <v-chip small color="red" label @click="noteLevel = 4">
+                Грубое нарушение
+              </v-chip>
+            </v-chip-group>
           </p>
 
         </v-card-text>
@@ -213,19 +207,73 @@
     import axios from "axios";
     import {BACKEND_URL} from "../../../backend";
     import RoomInfoCard from "../../../components/RoomInfoCard";
+    import moment from "moment";
 
     export default {
         name: "RoomView",
         components: {RoomInfoCard},
         data: () => ({
             room: null,
+            rooms:[],
             dialog: false,
             noteText: "",
             noteLevel: 0,
             id: -1,
             peopleDialog: false,
             currentPeople: null,
-            notes: []
+            notes: [],
+            tags: [
+                {
+                    text: 'Комната ожидает визита электрика (запись в журнале есть)',
+                    level: 2,
+                    short: 'Электрик'
+                },
+                {
+                    text: 'Комната ожидает визита плотника (запись в журнале есть)',
+                    level: 2,
+                    short: 'Плотник'
+                },
+                {
+                    text: 'Шумели после 23:00',
+                    level: 3,
+                    short: 'Шум'
+                },
+                {
+                    text: 'В комнате было грязно',
+                    level: 3,
+                    short: 'Грязь'
+                },
+                {
+                    text: 'Хранили алкоголь или тару',
+                    level: 3,
+                    short: 'Алкоголь'
+                },
+                {
+                    text: 'Нарушили правила пож. безопасности',
+                    level: 3,
+                    short: 'Пожарка'
+                },
+                {
+                    text: 'Нет плитки под нагревательным эл. прибором',
+                    level: 3,
+                    short: 'Нет плитки'
+                },
+                {
+                    text: 'Были замечены за курением в комнате',
+                    level: 4,
+                    short: 'Курение'
+                },
+                {
+                    text: 'Были замечены за распитием алкоголя в комнате',
+                    level: 4,
+                    short: 'Распитие'
+                },
+                {
+                    text: 'Помогли',
+                    level: 1,
+                    short: 'Помощь'
+                },
+            ]
         }),
         watch: {
             '$route.params.id': {
@@ -243,6 +291,22 @@
                 this.peopleDialog = true;
             },
             fetchData(id) {
+                axios
+                    .get(`${BACKEND_URL}room`)
+                    .then(response => (this.rooms = response.data))
+                    .then(() => {
+                        this.rooms.sort(function compareFunction( a, b ) {
+                            const r1 = Number.parseFloat(a._id);
+                            const r2 = Number.parseFloat(b._id);
+                            if ( r1<r2) {
+                                return -1;
+                            }
+                            if ( r1>r2) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                    });
                 axios
                     .get(`${BACKEND_URL}room/${id}`)
                     .then(response => (this.room = response.data));
@@ -298,9 +362,36 @@
                 if (level > 5 ) {
                     return colors[5];
                 }
-
                 return colors[level];
+            },
+            formatTime (datetime) {
+                return moment(datetime).format("DD.MM HH:mm");
+            },
+            leftClick () {
+              if (this.rooms.length === 0) return;
 
+              const index = this.rooms.findIndex(q => (q._id === this.id));
+              if (index <= 0) {
+                  this.id = this.rooms[this.rooms.length-1]._id;
+              } else
+              {
+                  this.id = this.rooms[index-1]._id;
+              }
+
+              this.fetchData(this.id);
+            },
+            rightClick () {
+                if (this.rooms.length === 0) return;
+
+                const index = this.rooms.findIndex(q => (q._id === this.id));
+                if (index >= this.rooms.length-1) {
+                    this.id = this.rooms[0]._id;
+                } else
+                {
+                    this.id = this.rooms[index+1]._id;
+                }
+
+                this.fetchData(this.id);
             }
         }
     }
@@ -309,5 +400,27 @@
 <style scoped>
   .chips-padding {
     padding: 5px 5px 5px 5px;
+  }
+
+  span {
+    /**
+             * Для эксплорера
+             */
+    -ms-user-select: none;
+
+    /**
+     * Для мозилы
+     */
+    -moz-user-select: none;
+
+    /**
+     * Для конкверора
+     */
+    -khtml-user-select: none;
+
+    /**
+     * Для Сафари и Хрома
+     */
+    -webkit-user-select: none;
   }
 </style>

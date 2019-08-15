@@ -43,7 +43,7 @@ app.get('/api/people', function(req,res,next)
 {
 //  if(!req.user) return res.json({error: 'Not Authorized'});
 
-  models.People.find({}).then((p)=>{
+  models.People.find({}).sort( { name: 1 } ).then((p)=>{
     res.json(p);
   }).catch(next);
 });

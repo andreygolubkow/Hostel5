@@ -7,7 +7,7 @@ const RoomNoteSchema = new mongoose.Schema(
     date: { type: String, default: '', trim: true, maxlength: 12 },
     state: { type: String, default: '', trim: true, maxlength: 255 },
     room: { type: String, default: '', trim: true, maxlength: 30 },
-    level: { type: String, default: 0},
+    level: { type: Number, default: 0},
     createdAt: { type: Date, default: Date.now }
 });
 
