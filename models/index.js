@@ -3,6 +3,7 @@ module.exports = {
 	// На *nix-ах все файлы чуствительны к регистру
 	User:require('./user'),
 	Post:require('./post'),
-  People: require('./people')
+  People: require('./people'),
+  RoomNote: require('./roomNote')
 };
 // Не забудем точку с запЕтой!

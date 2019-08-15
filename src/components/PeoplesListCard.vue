@@ -18,8 +18,11 @@
                   <v-list-item-subtitle>
                     {{`к.${p.room}, ${p.faculty}, ${p.group}`}}
                   </v-list-item-subtitle>
-                  <v-list-item-subtitle>
+                  <v-list-item-subtitle v-if="!p.notes || p.notes.length === 0">
                     {{`Заметок: ${p.notes.length}`}}
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle v-if="p.notes && p.notes.length>0">
+                    {{`${p.notes[p.notes.length-1].text}, ещё ${p.notes.length-1}`}}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>

@@ -27,5 +27,29 @@ app.get('/api/room/:room',(req, res, next)=>{
   })));
 });
 
+app.get('/api/room/:room/note',(req, res, next)=>{
+  //if(!req.user) return res.redirect('/login');
+  models.RoomNote
+    .find( { room: { $eq: req.params.room } } )
+    .sort( { createdAt: -1 } )
+    .exec().then((d) => (res.json(d)));
+});
+
+app.post('/api/room/:room/note',(req, res, next)=>{
+  //if(!req.user) return res.redirect('/login');/
+
+  let note = new models.RoomNote({
+    text: req.body.text,
+    room: req.params.room,
+    level: req.params.level,
+    date: `${moment().format("DD.MM.YYYY")}`
+  });
+
+  note.save()
+    .then(()=>{
+      res.json(note);
+    }).catch(next);
+});
+
 module.exports = app;
 

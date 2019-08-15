@@ -44,6 +44,7 @@ export default new Router({
             },
             {
               path: ":id",
+              name: "people-view",
               component: PeopleView
             }
           ]
