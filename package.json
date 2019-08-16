@@ -44,6 +44,7 @@
     "stack-trace": "0.0.10",
     "vue": "^2.6.10",
     "vue-chartist": "^2.2.1",
+    "vue-recaptcha": "^1.2.0",
     "vue-router": "^3.0.3",
     "vuetify": "^2.0.0",
     "vuex": "^3.0.1",

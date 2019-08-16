@@ -72,15 +72,25 @@
             <v-card class="mt-2 pa-1 ma-2 mx-auto col-5">
               <v-card-title>
                 <v-text-field
-                  label="Solo"
+                  label="Поиск людей"
                   single-line
                   flat
+                  v-model="searchInput"
                   @click:append-outer="search"
                   append-outer-icon="fa-search"
                 ></v-text-field>
               </v-card-title>
               <v-card-text>
-
+                <v-list-item v-for="(res,i) in searchResults" two-line dense :to="{ name: 'people-view', params: { id: res._id }}">
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{res.name}}
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{res.room}}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
               </v-card-text>
             </v-card>
 
@@ -105,10 +115,14 @@
             monthNotes: [],
             weekNotesByRoom: [],
             monthNotesByRoom: [],
+            searchInput: '',
+            searchResults: []
         }),
         methods: {
             search () {
-                return;
+                axios
+                    .get(`${BACKEND_URL}search/people?q=${this.searchInput}`)
+                    .then(response => (this.searchResults = response.data));
             },
             fetchData: function () {
                 axios

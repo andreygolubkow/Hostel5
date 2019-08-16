@@ -54,6 +54,18 @@ app.get('/api/search/people/notes/lastmonth',(req, res, next)=>{
     .catch(next);
 });
 
+app.get('/api/search/people/',(req, res, next)=>{
+  //if(!req.user) return res.redirect('/login');
+  if (!req.query.q) return res.json([]);
+  const q = req.query.q;
+  if (q.length <3 ) return res.json([]);
+
+  models.People
+    .find({ name: {$regex : `.*${q}.*`}})
+    .then((result) => (res.json(result)))
+    .catch(next);
+});
+
 
 
 module.exports = app;
