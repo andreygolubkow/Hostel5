@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema(
   {
-    from: { type: String, default: '', trim: true, maxlength: 255 },
+    from: { type: String, default: 'anonym', trim: true, maxlength: 255 },
     subject: { type: String, default: '', trim: true, maxlength: 255 },
     text: { type: String, default: '', trim: true, maxlength: 255 },
     createdAt: { type: Date, default: Date.now }

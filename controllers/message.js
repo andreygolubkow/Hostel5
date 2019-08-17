@@ -3,16 +3,25 @@ const models = require("../models");
 var moment = require('moment');
 var XLSX = require('xlsx');
 const formidable = require('formidable');
+const axios = require('axios');
+const config = require('../config');
 
 app.post('/api/message', function(req, res, next)
 {
   //if(!req.user) return res.redirect('/login');
 
-  let people = new models.People(req.body);
-  people.save()
-    .then(()=>{
-      res.json(people);
-    }).catch(next);
+  axios.get(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recaptcha}&response=${req.body.recaptcha}`)
+    .then((data) => {
+      if (data.data.success) {
+        let message = new models.Message(req.body.message);
+        message.save()
+          .then(()=>{
+            res.json(message);
+          }).catch(next);
+      } else {
+        res.json({error: "recapcha error"});
+      }
+  });
 });
 
 module.exports = app;
