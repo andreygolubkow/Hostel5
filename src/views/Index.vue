@@ -67,6 +67,7 @@
 
 <script>
     import VueRecaptcha from 'vue-recaptcha'
+    import {BACKEND_URL} from "../backend";
 
 
     export default {
@@ -79,7 +80,7 @@
         }),
         methods: {
             register (recaptchaToken) {
-                axios.post('https://yourserverurl.com/register', {
+                axios.post(`${BACKEND_URL}/message`, {
                     email: this.email,
                     password: this.password,
                     recaptchaToken: recaptchaToken
