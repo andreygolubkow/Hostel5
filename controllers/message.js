@@ -24,5 +24,14 @@ app.post('/api/message', function(req, res, next)
   });
 });
 
+app.get('/api/message', function(req,res,next)
+{
+//  if(!req.user) return res.json({error: 'Not Authorized'});
+
+  models.Message.find({public: true}).then((p)=>{
+    res.json(p);
+  }).catch(next);
+});
+
 module.exports = app;
 

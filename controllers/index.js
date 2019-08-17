@@ -9,5 +9,6 @@ app.use(require('./peoples'));
 app.use(require('./rooms'));
 app.use(require('./search'));
 app.use(require('./message'));
+app.use(require('./document'));
 
 module.exports = app;

@@ -20,7 +20,7 @@
         </v-alert>
       </v-flex>
 
-      <v-card class="pa-2 ma-2">
+      <v-card class="ma-2">
         <v-card-title>
           Напишите нам
         </v-card-title>
@@ -76,7 +76,29 @@
         </v-card-text>
       </v-card>
 
+      <v-card class="pa-1 ma-1">
+        <v-card-title>Вопрос-ответ</v-card-title>
 
+        <v-card-text>
+          <v-container v-for="(m,i) in messages">
+            <div class="subtitle-1">{{m.text}}</div>
+            <div class="body-2">{{m.answer}}</div>
+            <v-divider></v-divider>
+          </v-container>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="pa-1 ma-1">
+        <v-card-title>Документы</v-card-title>
+
+        <v-card-text>
+          <v-container v-for="(m,i) in messages">
+            <div class="subtitle-1">{{m.text}}</div>
+            <div class="body-2">{{m.answer}}</div>
+            <v-divider></v-divider>
+          </v-container>
+        </v-card-text>
+      </v-card>
 
 
 
@@ -100,6 +122,7 @@
                 subject: "",
                 text: ""
             },
+            messages: [],
             hideForm: false,
             alert: null,
             sitekey: '6Lc0UrMUAAAAANiuXF3PirUM8E98Fq5vrrVt6SHg'
@@ -126,12 +149,28 @@
                 });
             },
             validate () {
+                if (this.message.text.length === 0) {
+                    return false;
+                }
+                if (this.message.from.length === 0) {
+                    this.message.from = "Anonym";
+                }
+
+
                 this.$refs.recaptcha.execute()
             },
 
             onCaptchaExpired () {
                 this.$refs.recaptcha.reset()
+            },
+            fetchData () {
+                axios
+                    .get(`${BACKEND_URL}message`)
+                    .then(response => (this.messages = response.data));
             }
+        },
+        created() {
+            this.fetchData();
         }
     };
 </script>
