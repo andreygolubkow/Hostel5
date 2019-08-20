@@ -1,5 +1,6 @@
 {
 	"port":3000,
 	"mongoUri":"mongodb://dev:developer1@hostelcluster-shard-00-00-h3qzz.mongodb.net:27017,hostelcluster-shard-00-01-h3qzz.mongodb.net:27017,hostelcluster-shard-00-02-h3qzz.mongodb.net:27017/test?ssl=true&replicaSet=HostelCluster-shard-0&authSource=admin&retryWrites=true&w=majority",
-  "recaptcha": "6Lc0UrMUAAAAAE50NRV3xL9GTBkOZO50wyTUxO-7"
+  "recaptcha": "6Lc0UrMUAAAAAE50NRV3xL9GTBkOZO50wyTUxO-7",
+  "skipAuth" : true
 }

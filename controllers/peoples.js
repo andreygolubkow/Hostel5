@@ -3,10 +3,11 @@ const models = require("../models");
 var moment = require('moment');
 var XLSX = require('xlsx');
 const formidable = require('formidable');
+const config = require('../config');
 
 app.post('/api/people', function(req, res, next)
 {
-  //if(!req.user) return res.redirect('/login');
+  if(!req.user && !config.skipAuth) return res.redirect('/login');
 
   if (req.query.type === 'xlsx') {
     return importPeoples(req, res, next);
@@ -21,7 +22,7 @@ app.post('/api/people', function(req, res, next)
 
 function importPeoples(req, res, next)
 {
-  //if(!req.user) return res.redirect('/login');
+  if(!req.user && !config.skipAuth) return res.redirect('/login');
 
   var form = new formidable.IncomingForm();
   form.parse(req, function(err, fields, files) {
@@ -41,7 +42,7 @@ function importPeoples(req, res, next)
 
 app.get('/api/people', function(req,res,next)
 {
-//  if(!req.user) return res.json({error: 'Not Authorized'});
+  if(!req.user && !config.skipAuth) return res.redirect('/login');
 
   models.People.find({}).sort( { name: 1 } ).then((p)=>{
     res.json(p);
@@ -49,7 +50,8 @@ app.get('/api/people', function(req,res,next)
 });
 
 app.get('/api/people/:id',(req, res, next)=>{
-  //if(!req.user) return res.redirect('/login');
+  if(!req.user && !config.skipAuth) return res.redirect('/login');
+
   models.People.findOne({
     _id:req.params.id
   }).exec().then((p)=>{
@@ -61,7 +63,8 @@ app.get('/api/people/:id',(req, res, next)=>{
 });
 
 app.delete('/api/people/:id',(req, res, next)=>{
-  //if(!req.user) return res.redirect('/login');
+  if(!req.user && !config.skipAuth) return res.redirect('/login');
+
   models.People.deleteOne({ _id: req.params.id }, function (err) {
     if (err) return handleError(err);
   });
@@ -69,7 +72,9 @@ app.delete('/api/people/:id',(req, res, next)=>{
 });
 
 app.post('/api/people/:id/rate', (req, res, next) => {
-  //if(!req.user) return res.redirect('/login');
+
+  if(!req.user && !config.skipAuth) return res.redirect('/login');
+
   if(!req.body) return res.sendStatus(400);
   var id = req.params.id; // получаем id
   var rate = req.body.rate;
@@ -80,7 +85,9 @@ app.post('/api/people/:id/rate', (req, res, next) => {
 });
 
 app.post('/api/people/:id/note', (req, res, next) => {
-  //if(!req.user) return res.redirect('/login');
+
+  if(!req.user && !config.skipAuth) return res.redirect('/login');
+
   if(!req.body) return res.sendStatus(400);
   var id = req.params.id; // получаем id
   var noteText = req.body.note;

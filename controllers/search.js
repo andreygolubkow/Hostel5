@@ -17,10 +17,10 @@ app.get('/api/search/notes/query',(req, res, next)=>{
 app.get('/api/search/notes/lastweek',(req, res, next)=>{
   //if(!req.user) return res.redirect('/login');
 
-  // Ищем заметки с вечера вторника, т.к. собрания по вторникам
-  const weekday = 2;
+  // Ищем заметки со среды, т.к. собрания по вторникам
+  const weekday = 3;
 
-  var tuesday = moment().utc().day(+weekday); //Вторник
+  var tuesday = moment().utc().day(+weekday);
 
   if (tuesday.dayOfYear() > moment().dayOfYear()) {
     tuesday = tuesday.subtract(7, 'days');

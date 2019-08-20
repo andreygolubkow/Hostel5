@@ -27,6 +27,10 @@ export default new Router({
           component: () => import("./views/Office/Index.vue")
         },
         {
+          path: "message",
+          component: () => import("./views/Office/Message.vue")
+        },
+        {
           path: 'peoples',
           component: Peoples,
           children: [

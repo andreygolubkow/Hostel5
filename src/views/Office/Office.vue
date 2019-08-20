@@ -20,6 +20,9 @@
           <v-list-item to="/office/index">
             <v-list-item-title>Обзор</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/office/message">
+            <v-list-item-title>Сообщения</v-list-item-title>
+          </v-list-item>
           <v-list-item to="/office/peoples">
             <v-list-item-title>Контингент</v-list-item-title>
           </v-list-item>

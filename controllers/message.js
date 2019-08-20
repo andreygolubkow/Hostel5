@@ -26,10 +26,27 @@ app.post('/api/message', function(req, res, next)
 
 app.get('/api/message', function(req,res,next)
 {
-//  if(!req.user) return res.json({error: 'Not Authorized'});
+  var criteria = {};
 
-  models.Message.find({public: true}).then((p)=>{
+  if(!req.user && !config.skipAuth) {
+    criteria = { public: true};
+  }
+  models.Message.find(criteria).then((p)=>{
     res.json(p);
+  }).catch(next);
+});
+
+app.put('/api/message/:id', function(req,res,next)
+{
+  if(!req.user && !config.skipAuth) {
+    if (!id) return res.status(401);
+  }
+
+  const id = req.params.id;
+  if (!id) return res.status(404);
+
+  models.Message.findOneAndUpdate({_id: id}, req.body).then((p)=>{
+      res.json(p);
   }).catch(next);
 });
 

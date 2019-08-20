@@ -92,10 +92,11 @@
         <v-card-title>Документы</v-card-title>
 
         <v-card-text>
-          <v-container v-for="(m,i) in messages">
-            <div class="subtitle-1">{{m.text}}</div>
-            <div class="body-2">{{m.answer}}</div>
-            <v-divider></v-divider>
+          <v-container v-for="(d,i) in documents">
+            <v-list-item :to="d.url">
+              <v-list-item-title>{{d.name}}</v-list-item-title>
+              <v-divider></v-divider>
+            </v-list-item>
           </v-container>
         </v-card-text>
       </v-card>
@@ -123,6 +124,7 @@
                 text: ""
             },
             messages: [],
+            documents: [],
             hideForm: false,
             alert: null,
             sitekey: '6Lc0UrMUAAAAANiuXF3PirUM8E98Fq5vrrVt6SHg'
@@ -167,6 +169,10 @@
                 axios
                     .get(`${BACKEND_URL}message`)
                     .then(response => (this.messages = response.data));
+
+                axios
+                    .get(`${BACKEND_URL}document`)
+                    .then(response => (this.documents = response.data));
             }
         },
         created() {
