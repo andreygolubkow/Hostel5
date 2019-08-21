@@ -37,6 +37,11 @@
           <li class="nav-item">
             <a class="nav-link">{{user.name}}</a>
           </li>
+          {{#user.admin}}
+          <li class="nav-item">
+            <a href="../office/" class="nav-link">Панель управления</a>
+          </li>
+          {{/user.admin}}
           <li class="nav-item">
             <a href="../auth/logout" class="btn btn-danger btn-round">Выход</a>
           </li>
@@ -106,6 +111,7 @@
 
       </div>
     </div>
+    <!---
     <div class="section section-image section-login" style="background-image: url('../assets/img/login-image.jpg');">
       <div class="container  content-center">
         <div id="chat" class="col scrollable-content force-owerflow" style="overflow-y: scroll; background-color: rgba(255,255,255,0); min-height: 300px; max-height: 500px;">
@@ -164,6 +170,7 @@
 
       </div>
     </div>
+    ---->
   </div>
     <footer class="footer footer-black  footer-white ">
       <div class="container">
