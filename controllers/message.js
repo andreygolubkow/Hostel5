@@ -13,6 +13,8 @@ app.post('/api/message', function(req, res, next)
   axios.get(`https://www.google.com/recaptcha/api/siteverify?secret=${config.recaptcha}&response=${req.body.recaptcha}`)
     .then((data) => {
       if (data.data.success) {
+        req.body.message['answer'] = "";
+        req.body.message['public'] = false;
         let message = new models.Message(req.body.message);
         message.save()
           .then(()=>{

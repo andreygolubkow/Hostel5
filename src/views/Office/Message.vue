@@ -43,21 +43,24 @@
             <span class="headline">Редактировать сообщение</span>
           </v-card-title>
           <v-card-text>
-            <span class="subtitle-2">От {{dialogMessage.from}}</span>
-            <span class="subtitle-2">  {{dialogMessage.subject}}</span>
-            <blockquote class="blockquote">
-                {{dialogMessage.text}}
-            </blockquote>
+            <v-form v-model="dialogMessage">
+              <span class="subtitle-2">От {{dialogMessage.from}}</span>
+              <span class="subtitle-2">  {{dialogMessage.subject}}</span>
+              <blockquote class="blockquote">
+                  {{dialogMessage.text}}
+              </blockquote>
 
-            <v-row>
-              <v-col cols="12">
-                <v-textarea
-                  label="Ответ"
-                  v-bind:value="dialogMessage.answer"
-                ></v-textarea>
-              </v-col>
-            </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <v-textarea
+                    label="Ответ"
 
+                    v-model="dialogMessage.answer"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+
+            </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>

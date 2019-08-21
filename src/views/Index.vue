@@ -14,13 +14,13 @@
       </v-app-bar>
     <v-content>
 
-      <v-flex xs12 class="pa-1 ma-1" v-if="alert">
+      <v-flex xs12 class="ma-1" v-if="alert">
         <v-alert :type="alert.type">
           {{alert.text}}
         </v-alert>
       </v-flex>
 
-      <v-card class="ma-2">
+      <v-card class="ma-1" min-width="300" >
         <v-card-title>
           Напишите нам
         </v-card-title>
