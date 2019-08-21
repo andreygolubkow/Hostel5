@@ -10,5 +10,20 @@ app.use(require('./rooms'));
 app.use(require('./search'));
 app.use(require('./message'));
 app.use(require('./document'));
+app.use(require('./cabinet'));
+
+app.get('/',function(req,res,next)
+{
+  if(req.user) return res.redirect('/cabinet');
+
+  res.render('index');
+});
+
+app.get('/help',function(req,res,next)
+{
+  if(req.user) return res.redirect('/cabinet');
+
+  res.render('help');
+});
 
 module.exports = app;

@@ -4,5 +4,6 @@ module.exports = {
   People: require('./people'),
   RoomNote: require('./roomNote'),
   Message: require('./message'),
-  Document: require('./document')
+  Document: require('./document'),
+  Floor: require('./floor')
 };

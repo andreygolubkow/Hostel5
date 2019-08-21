@@ -6,24 +6,26 @@ const MongoStore = require('connect-mongo')(session); // Хранилище се
 const cons = require('consolidate');
 const config = require('../config');
 const Logger = require('../logger');
+const VKontakteStrategy = require('passport-vkontakte').Strategy;
 const logger = new Logger(); //  Загрузить логгер!
-require('./dbinit'); // Инициализация датабазы
+require('./dbinit');
+const passport = require("passport"); // Инициализация датабазы
 // Загрузим express
 let app = express();
 // Создадим новый сервер
 // Время ответа
 app.use(require('./rt'));
 
-app.use('/', express.static(path.join(__dirname, "../dist")));
+app.use('/office', express.static(path.join(__dirname, "../dist")));
+app.use('/assets', express.static(path.join(__dirname, "../assets")));
 app.use('/public',express.static(path.join(__dirname,'../public')));
-
 
 // Парсер Куки!
 app.use(require('cookie-parser')());
 // Теперь сессия
 // поставить хендлер для сессий
 app.use(session({
-    secret: 'Химера Хирера',
+    secret: config.secret,
     // Замените на что нибудь
     resave: false,
     // Пересохранять даже если нету изменений
