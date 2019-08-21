@@ -5,6 +5,6 @@
   "skipAuth" : true,
   "VKONTAKTE_APP_ID": "7106172",
   "VKONTAKTE_APP_SECRET": "f88gCsGpe6XZP9QaMbgA",
-  "VK_CALLBACK": "http://localhost:3000/auth/vk/callback",
+  "VK_CALLBACK": "http://hostel5.herokuapp.com/auth/vk/callback",
   "secret": "ssssss"
 }
