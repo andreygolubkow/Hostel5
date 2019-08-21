@@ -2,18 +2,18 @@
   <v-app>
       <v-app-bar app>
         <v-toolbar-title class="headline text-uppercase">
-          <span>Hostel</span>
+          <span>АИС Общежитие</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
           text
           to="office"
         >
-          <span class="mr-2">Office</span>
+          <span class="mr-2">Управление</span>
         </v-btn>
       </v-app-bar>
     <v-content>
-
+<!---
       <v-flex xs12 class="ma-1" v-if="alert">
         <v-alert :type="alert.type">
           {{alert.text}}
@@ -100,10 +100,7 @@
           </v-container>
         </v-card-text>
       </v-card>
-
-
-
-
+*/--->
     </v-content>
     </v-app>
 </template>

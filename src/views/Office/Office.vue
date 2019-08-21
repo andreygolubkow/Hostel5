@@ -2,8 +2,8 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Hostel</span>
-        <span class="font-weight-light">Office</span>
+        <span>АИС Общежитие</span>
+        <span class="font-weight-light">Управление</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -34,6 +34,7 @@
 
       <v-btn
         text
+        href="https://hostel5.herokuapp.com"
       >
         <span class="mr-2">Аккаунт</span>
       </v-btn>
