@@ -42,7 +42,7 @@ app.use(bodyParser.json({
 app.use(bodyParser.urlencoded({
     extended:true
 }));
-// Используем движок усов
+
 app.engine('html', cons.ejs);
 // установить движок рендеринга
 app.set('view engine', 'html');
