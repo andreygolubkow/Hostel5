@@ -7,9 +7,9 @@
         <v-spacer></v-spacer>
         <v-btn
           text
-          to="office"
+          to="admin"
         >
-          <span class="mr-2">Управление</span>
+          <span class="mr-2">Администратор</span>
         </v-btn>
       </v-app-bar>
     <v-content>

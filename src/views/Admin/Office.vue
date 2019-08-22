@@ -17,16 +17,16 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item to="/office/index">
+          <v-list-item to="/admin/index">
             <v-list-item-title>Обзор</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/office/message">
+          <v-list-item to="/admin/message">
             <v-list-item-title>Сообщения</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/office/peoples">
+          <v-list-item to="/admin/peoples">
             <v-list-item-title>Контингент</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/office/rooms">
+          <v-list-item to="/admin/rooms">
             <v-list-item-title>Комнаты</v-list-item-title>
           </v-list-item>
         </v-list>

@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from "./views/Index";
-import Office from "./views/Office/Office";
-import Peoples from "./views/Office/Peoples/Peoples";
-import PeoplesListView from "./views/Office/Peoples/PeoplesListView";
-import PeopleView from "./views/Office/Peoples/PeopleView";
-import PeoplesImport from "./views/Office/Peoples/PeoplesImport";
-import Rooms from "./views/Office/Rooms/Rooms";
-import RoomsListView from "./views/Office/Rooms/RoomsListView";
-import RoomView from "./views/Office/Rooms/RoomView";
+import Office from "./views/Admin/Office";
+import Peoples from "./views/Admin/Peoples/Peoples";
+import PeoplesListView from "./views/Admin/Peoples/PeoplesListView";
+import PeopleView from "./views/Admin/Peoples/PeopleView";
+import PeoplesImport from "./views/Admin/Peoples/PeoplesImport";
+import Rooms from "./views/Admin/Rooms/Rooms";
+import RoomsListView from "./views/Admin/Rooms/RoomsListView";
+import RoomView from "./views/Admin/Rooms/RoomView";
 
 Vue.use(Router);
 
@@ -19,16 +19,16 @@ export default new Router({
       component: Index
     },
     {
-      path: '/office/',
+      path: '/admin/',
       component: Office,
       children: [
         {
           path: "index",
-          component: () => import("./views/Office/Index.vue")
+          component: () => import("./views/Admin/Index.vue")
         },
         {
           path: "message",
-          component: () => import("./views/Office/Message.vue")
+          component: () => import("./views/Admin/Message.vue")
         },
         {
           path: 'peoples',

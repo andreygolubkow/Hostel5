@@ -19,25 +19,7 @@ app.get('/cabinet/',function(req,res,next)
       res.render('cabinet/index', {
         user: req.user,
         floor: f.doc,
-        room: r.doc,
-        getScoreClass: function() {
-          return function(san, render) {
-            switch (san.score) {
-              case 1:
-                return `<span class=\"label label-success\">${san.date}</span>`;
-              case 2:
-                return `<span class=\"label label-success\">${san.date}</span>`;
-              case 3:
-                return `<span class=\"label label-success\">${san.date}</span>`;
-              case 4:
-                return `<span class=\"label label-success\">${san.date}</span>`;
-              case 5:
-                return `<span class=\"label label-success\">${san.date}</span>`;
-              default:
-                return `<span class=\"label label-success\">${san.date}</span>`;
-            }
-          }
-        }
+        room: r.doc
     })
     ));
   });
