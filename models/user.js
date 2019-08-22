@@ -11,7 +11,8 @@ let userSchema = new mongoose.Schema({
 		type:String, // тип: String
 	},
   room: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Room'
   },
   url:{
     type:String, // тип: String
@@ -21,7 +22,10 @@ let userSchema = new mongoose.Schema({
   sanitary: {
     type: Object,
     floors: [
-        floor
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Room'
+        }
     ],
   },
   floorHead: {type: Boolean, default: false},

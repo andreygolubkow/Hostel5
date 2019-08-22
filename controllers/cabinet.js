@@ -7,7 +7,7 @@ app.get('/cabinet/',function(req,res,next)
   if(!req.user.room) return res.redirect('/cabinet/setroom');
   if(req.user.room.length === 0) return res.redirect('/cabinet/setroom');
 
-  models.Floor.findOrCreate({floor: req.user.room[0]}, {
+  models.Floor.populate('rooms').findOrCreate({floor: req.user.room[0]}, {
     floor: req.user.room[0],
     message: "¯ _ (ツ) _ / ¯",
     news: [],
@@ -17,13 +17,26 @@ app.get('/cabinet/',function(req,res,next)
         sanitation: []
       }
     ],
-  }).then((d) => (
-    res.render('cabinet/index', {
-      user: req.user,
-      floor: f.doc,
-      room: f.doc.rooms.find(r => (r.room === req.user.room))
-    })
-  ));
+  }).then((d) =>
+    {
+      if (!d.doc.rooms.find(r => (r.room === req.user.room))) {
+          models.Floor.findOneAndUpdate({floor: req.user.room[0] },{rooms: {$push: {room: req.user.room}}}, {new: true})
+            .then((d) => (
+              res.render('cabinet/index', {
+                user: req.user,
+                floor: f.doc,
+                room: d.rooms.find(r => (r.room === req.user.room))
+                }
+            )));
+      } else {
+        res.render('cabinet/index', {
+            user: req.user,
+            floor: f.doc,
+            room: d.rooms.find(r => (r.room === req.user.room))
+          }
+        )
+      }
+      });
 });
 
 app.get('/cabinet/setroom',function(req,res,next)

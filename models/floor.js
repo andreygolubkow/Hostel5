@@ -19,7 +19,10 @@ let floorSchema = new mongoose.Schema({
     }
   ],
   rooms: [
-    room
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Room'
+    }
   ]
 });
 floorSchema.plugin(findOrCreate);
