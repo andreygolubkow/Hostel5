@@ -1,6 +1,6 @@
 var findOrCreate = require('mongoose-findorcreate');
 const mongoose = require('mongoose');
-const floor = require('floor');
+const floor = require('./floor');
 
 let userSchema = new mongoose.Schema({
   name: {
