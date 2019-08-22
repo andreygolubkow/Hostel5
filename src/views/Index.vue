@@ -1,6 +1,6 @@
 <template>
   <v-app>
-      <v-app-bar app>
+      <v-app-bar app v-if="user">
         <v-toolbar-title class="headline text-uppercase">
           <span>АИС Общежитие</span>
         </v-toolbar-title>
@@ -8,8 +8,16 @@
         <v-btn
           text
           to="admin"
+          v-if="user.admin"
         >
           <span class="mr-2">Администратор</span>
+        </v-btn>
+        <v-btn
+          text
+          to="sanitary"
+          v-if="user.sanitary"
+        >
+          <span class="mr-2">Санитария</span>
         </v-btn>
       </v-app-bar>
     <v-content>
@@ -115,6 +123,7 @@
         name: 'Index',
         components: { VueRecaptcha },
         data: () => ({
+            user: null,
             message:{
                 from: "",
                 subject: "",
@@ -163,13 +172,17 @@
                 this.$refs.recaptcha.reset()
             },
             fetchData () {
-                axios
+                /*axios
                     .get(`${BACKEND_URL}message`)
                     .then(response => (this.messages = response.data));
 
                 axios
                     .get(`${BACKEND_URL}document`)
-                    .then(response => (this.documents = response.data));
+                    .then(response => (this.documents = response.data)); */
+
+                axios
+                    .get(`${BACKEND_URL}user`)
+                    .then(response => (this.user = response.data));
             }
         },
         created() {

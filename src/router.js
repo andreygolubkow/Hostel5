@@ -9,6 +9,7 @@ import PeoplesImport from "./views/Admin/Peoples/PeoplesImport";
 import Rooms from "./views/Admin/Rooms/Rooms";
 import RoomsListView from "./views/Admin/Rooms/RoomsListView";
 import RoomView from "./views/Admin/Rooms/RoomView";
+import Sanitary from "./views/Sanitary/Sanitary";
 
 Vue.use(Router);
 
@@ -77,6 +78,16 @@ export default new Router({
           redirect: "index"
         }
       ]
+    },
+    {
+      path: '/sanitary/',
+      component: Sanitary,
+      children: [
+        {
+          path: "index",
+          component: () => import("./views/Sanitary/Index.vue")
+        }
+        ]
     }
   ]
 })

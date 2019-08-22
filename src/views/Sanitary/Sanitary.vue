@@ -3,7 +3,7 @@
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>АИС Общежитие</span>
-        <span class="font-weight-light">Администратор</span>
+        <span class="font-weight-light">Санитария</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -17,16 +17,10 @@
           </v-btn>
         </template>
         <v-list>
-          <v-list-item to="/admin/index">
+          <v-list-item to="/sanitary/index">
             <v-list-item-title>Обзор</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/admin/message">
-            <v-list-item-title>Сообщения</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/admin/peoples">
-            <v-list-item-title>Контингент</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/admin/rooms">
+          <v-list-item to="/sanitary/rooms">
             <v-list-item-title>Комнаты</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -50,7 +44,7 @@
 <script>
 
     export default {
-        name: 'Office',
+        name: 'Sanitary',
         data: () => ({
             //
         }),
