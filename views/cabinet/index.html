@@ -110,21 +110,22 @@
               function getColor(san) {
                   switch (san.score) {
                   case 1:
-                  return `<span class=\"label label-success\">${san.date}</span>`;
+                  return `label-primary`;
                   case 2:
-                  return `<span class=\"label label-success\">${san.date}</span>`;
+                  return `label-danger`;
                   case 3:
-                  return `<span class=\"label label-success\">${san.date}</span>`;
+                  return `label-warning`;
                   case 4:
-                  return `<span class=\"label label-success\">${san.date}</span>`;
+                  return `label-info`;
                   case 5:
-                  return `<span class=\"label label-success\">${san.date}</span>`;
+                  return `label-success`;
                   default:
-                  return `<span class=\"label label-success\">${san.date}</span>`;
+                  return `label-primary`;
                   }
               }
             %>
-                <%= getColor(s) %>
+                <span class="label <%= getColor(s) %>"><%= s.date%></span>
+
             <% });
             }
             %>
