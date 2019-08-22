@@ -9,6 +9,7 @@ const Logger = require('../logger');
 const VKontakteStrategy = require('passport-vkontakte').Strategy;
 const logger = new Logger(); //  Загрузить логгер!
 require('./dbinit');
+const ejs = require('ejs');
 const passport = require("passport"); // Инициализация датабазы
 // Загрузим express
 let app = express();
@@ -42,7 +43,7 @@ app.use(bodyParser.urlencoded({
     extended:true
 }));
 // Используем движок усов
-app.engine('html', cons.mustache);
+app.engine('html', cons.ejs);
 // установить движок рендеринга
 app.set('view engine', 'html');
 // папка с образами

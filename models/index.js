@@ -5,5 +5,6 @@ module.exports = {
   RoomNote: require('./roomNote'),
   Message: require('./message'),
   Document: require('./document'),
-  Floor: require('./floor')
+  Floor: require('./floor'),
+  Room: require('./room')
 };

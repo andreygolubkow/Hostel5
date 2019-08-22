@@ -21,7 +21,7 @@
     "core-js": "^2.6.5",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
-    "ejs": "~2.6.1",
+    "ejs": "^2.6.2",
     "express": "~4.16.1",
     "express-session": "^1.15.6",
     "formidable": "^1.2.1",

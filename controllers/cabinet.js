@@ -12,13 +12,35 @@ app.get('/cabinet/',function(req,res,next)
     message: "¯ _ (ツ) _ / ¯",
     news: []
   }).then(f => {
-    console.log(f);
-    res.render('cabinet/index', {
-      user: req.user,
-      floor: f.doc
-    });
+    models.Room.findOrCreate({room: req.user.room}, {
+      room: req.user.room,
+      sanitation: []
+    }).then(r => (
+      res.render('cabinet/index', {
+        user: req.user,
+        floor: f.doc,
+        room: r.doc,
+        getScoreClass: function() {
+          return function(san, render) {
+            switch (san.score) {
+              case 1:
+                return `<span class=\"label label-success\">${san.date}</span>`;
+              case 2:
+                return `<span class=\"label label-success\">${san.date}</span>`;
+              case 3:
+                return `<span class=\"label label-success\">${san.date}</span>`;
+              case 4:
+                return `<span class=\"label label-success\">${san.date}</span>`;
+              case 5:
+                return `<span class=\"label label-success\">${san.date}</span>`;
+              default:
+                return `<span class=\"label label-success\">${san.date}</span>`;
+            }
+          }
+        }
+    })
+    ));
   });
-
 });
 
 app.get('/cabinet/',function(req,res,next)
