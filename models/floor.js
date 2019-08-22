@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 var findOrCreate = require('mongoose-findorcreate');
+const room = require('./room');
 
 let floorSchema = new mongoose.Schema({
 	floor: {
@@ -16,6 +17,9 @@ let floorSchema = new mongoose.Schema({
       text: { type: String, default: '', maxlength: 1000 },
       date: { type: String, default: '', maxlength: 10 }
     }
+  ],
+  rooms: [
+    room
   ]
 });
 floorSchema.plugin(findOrCreate);

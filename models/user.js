@@ -1,5 +1,6 @@
 var findOrCreate = require('mongoose-findorcreate');
 const mongoose = require('mongoose');
+const floor = require('floor');
 
 let userSchema = new mongoose.Schema({
   name: {
@@ -16,11 +17,14 @@ let userSchema = new mongoose.Schema({
     type:String, // тип: String
   },
   vkId: {type: String, unique: true},
-
   admin: {type: Boolean, default: false},
-  sanitary: {type: Boolean, default: false},
+  sanitary: {
+    type: Object,
+    floors: [
+        floor
+    ],
+  },
   floorHead: {type: Boolean, default: false},
-	// Здесь будут и другие поля, но сейчас еще рано их сюда ставить!
 });
 
 // Теперь подключим плагины (внешнии модули)

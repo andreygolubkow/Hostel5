@@ -10,28 +10,20 @@ app.get('/cabinet/',function(req,res,next)
   models.Floor.findOrCreate({floor: req.user.room[0]}, {
     floor: req.user.room[0],
     message: "¯ _ (ツ) _ / ¯",
-    news: []
-  }).then(f => {
-    models.Room.findOrCreate({room: req.user.room}, {
-      room: req.user.room,
-      sanitation: []
-    }).then(r => (
-      res.render('cabinet/index', {
-        user: req.user,
-        floor: f.doc,
-        room: r.doc
+    news: [],
+    rooms: [
+      {
+        room: req.user.room,
+        sanitation: []
+      }
+    ],
+  }).then((d) => (
+    res.render('cabinet/index', {
+      user: req.user,
+      floor: f.doc,
+      room: f.doc.rooms.find(r => (r.room === req.user.room))
     })
-    ));
-  });
-});
-
-app.get('/cabinet/',function(req,res,next)
-{
-  if(!req.user) return res.redirect('/');
-
-  res.render('cabinet/index', {
-    user: req.user
-  });
+  ));
 });
 
 app.get('/cabinet/setroom',function(req,res,next)

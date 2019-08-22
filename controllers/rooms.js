@@ -6,15 +6,16 @@ const formidable = require('formidable');
 
 app.get('/api/room', function(req,res,next)
 {
-//  if(!req.user) return res.json({error: 'Not Authorized'});
-  models.People.aggregate([{$group: {
-      _id: "$room",
-      peoples: { $push: {
-          faculty: "$faculty",
-          citizen: "$citizen"
-        } }
-    }}])
-    .exec().then((d) => (res.json(d)));
+  if (req.user.admin) {
+    models.People.aggregate([{$group: {
+        _id: "$room",
+        peoples: { $push: {
+            faculty: "$faculty",
+            citizen: "$citizen"
+          } }
+      }}])
+      .exec().then((d) => (res.json(d)));
+  }
 });
 
 app.get('/api/room/:room',(req, res, next)=>{
@@ -50,6 +51,8 @@ app.post('/api/room/:room/note',(req, res, next)=>{
       res.json(note);
     }).catch(next);
 });
+
+
 
 module.exports = app;
 
