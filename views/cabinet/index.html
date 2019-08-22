@@ -35,7 +35,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link"><%= user.name %></a>
+            <a class="nav-link"><% user.name %></a>
           </li>
           <% if (user.admin) { %>
             <li class="nav-item">
@@ -55,7 +55,7 @@
     <div class="content-center">
       <div class="container">
         <div class="title-brand">
-          <h1 class="presentation-title"><%= floor.floor %> Этаж</h1>
+          <h1 class="presentation-title"><% floor.floor %> Этаж</h1>
           <div class="fog-low">
             <img src="../assets/img/fog-low.png" alt="">
           </div>
@@ -63,7 +63,7 @@
             <img src="../assets/img/fog-low.png" alt="">
           </div>
         </div>
-        <h2 class="presentation-subtitle text-center"><%= floor.message %></h2>
+        <h2 class="presentation-subtitle text-center"><% floor.message %></h2>
       </div>
     </div>
     <div class="moving-clouds" style="background-image: url('../assets/img/clouds.png'); "></div>
@@ -77,7 +77,9 @@
             Последние новости
             </h3>
           </div>
-        <% floor.news?.forEach(function(article){ %>
+        <% if (floor.news) { %>
+
+          <% floor.news.forEach(function(article){ %>
           <div class="row">
             <div class="typography-line">
               <span class="label label-default"><%= article.date%></span>
@@ -86,7 +88,9 @@
                 </p>
             </div>
           </div>
-        <% }); %>
+        <% });
+        }
+        %>
       </div>
     </div>
 
