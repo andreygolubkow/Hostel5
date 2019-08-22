@@ -10,7 +10,13 @@ let floorSchema = new mongoose.Schema({
   message: {
 	  type: String,
     default: "¯ _ (ツ) _ / ¯"
-  }
+  },
+  news: [
+    {
+      text: { type: String, default: '', maxlength: 1000 },
+      date: { type: String, default: '', maxlength: 10 }
+    }
+  ]
 });
 floorSchema.plugin(findOrCreate);
 

@@ -7,13 +7,18 @@ app.get('/cabinet/',function(req,res,next)
   if(!req.user.room) return res.redirect('/cabinet/setroom');
   if(req.user.room.length === 0) return res.redirect('/cabinet/setroom');
 
-  models.Floor.findOrCreate({floor: req.user.room[0]}, {floor: req.user.room[0]}).then(f => {
+  models.Floor.findOrCreate({floor: req.user.room[0]}, {
+    floor: req.user.room[0],
+    message: "¯ _ (ツ) _ / ¯",
+    news: []
+  }).then(f => {
     console.log(f);
     res.render('cabinet/index', {
       user: req.user,
       floor: f.doc
     });
   });
+
 });
 
 app.get('/cabinet/',function(req,res,next)

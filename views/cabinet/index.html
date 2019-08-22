@@ -77,14 +77,16 @@
             Последние новости
             </h3>
           </div>
+        {{#news}}
           <div class="row">
             <div class="typography-line">
-              <span class="label label-default">1.06.2019</span>
+              <span class="label label-default">{{date}}</span>
                 <p>
-                    В 22.00 собрание этажа(возле комнат 322 и 323)
+                    {{text}}
                 </p>
             </div>
           </div>
+        {{/news}}
       </div>
     </div>
 
@@ -155,7 +157,7 @@
                 </a>
               </li>
               <li>
-                <b class="text-white">Расшифровка оценок:</b>
+                <b class="text-white">Расшифровка оценок за сан. состояние:</b>
                 <span class="label label-success">Отлично</span>
                 <span class="label label-info">Хорошо</span>
                 <span class="label label-warning">Удовлетворительно</span>
