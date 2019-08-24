@@ -10,6 +10,9 @@ import Rooms from "./views/Admin/Rooms/Rooms";
 import RoomsListView from "./views/Admin/Rooms/RoomsListView";
 import RoomView from "./views/Admin/Rooms/RoomView";
 import Sanitary from "./views/Sanitary/Sanitary";
+import Floor from "./views/Sanitary/Floor/Floor"
+import FloorList from "./views/Sanitary/Floor/FloorList"
+import FloorView from "./views/Sanitary/Floor/FloorView"
 
 Vue.use(Router);
 
@@ -86,6 +89,26 @@ export default new Router({
         {
           path: "index",
           component: () => import("./views/Sanitary/Index.vue")
+        },
+        {
+          path: 'floor',
+          component: Floor,
+          children: [
+            {
+              path: "",
+              redirect: "list"
+            },
+            {
+              path: "list",
+              component: FloorList
+            },
+            {
+              path: ":id",
+              name: "floor-view",
+              component: FloorView
+            }
+          ]
+
         }
         ]
     }

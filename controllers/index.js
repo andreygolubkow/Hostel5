@@ -12,6 +12,7 @@ app.use(require('./message'));
 app.use(require('./document'));
 app.use(require('./cabinet'));
 app.use(require('./user'));
+app.use(require('./floor'));
 
 app.get('/',function(req,res,next)
 {

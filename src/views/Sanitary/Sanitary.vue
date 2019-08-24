@@ -20,8 +20,8 @@
           <v-list-item to="/sanitary/index">
             <v-list-item-title>Обзор</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/sanitary/rooms">
-            <v-list-item-title>Комнаты</v-list-item-title>
+          <v-list-item to="/sanitary/floor">
+            <v-list-item-title>Этаж</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>

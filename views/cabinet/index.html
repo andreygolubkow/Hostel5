@@ -98,7 +98,7 @@
       <div class="container">
         <div class="title">
           <h3>
-            Санитарное состояние комнаты <%=user.room%>
+            Санитарное состояние комнаты <%=room.room%>
           </h3>
         </div>
         <div class="row">
@@ -120,7 +120,7 @@
                   case 5:
                   return `label-success`;
                   default:
-                  return `label-default`;
+                  return ``;
                   }
               }
             %>
@@ -187,7 +187,7 @@
                 <span class="label label-info">Хорошо</span>
                 <span class="label label-warning">Удовлетворительно</span>
                 <span class="label label-danger">Неудовлетворительно</span>
-                <span class="label label-primary">Отсутствовали жильцы</span>
+                <span class="label">Отсутствовали жильцы</span>
               </li>
             </ul>
           </div>

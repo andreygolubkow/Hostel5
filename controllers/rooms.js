@@ -6,8 +6,7 @@ const formidable = require('formidable');
 
 app.get('/api/room', function(req,res,next)
 {
-  if (req.user.admin) {
-    models.People.aggregate([{$group: {
+  models.People.aggregate([{$group: {
         _id: "$room",
         peoples: { $push: {
             faculty: "$faculty",
@@ -15,7 +14,6 @@ app.get('/api/room', function(req,res,next)
           } }
       }}])
       .exec().then((d) => (res.json(d)));
-  }
 });
 
 app.get('/api/room/:room',(req, res, next)=>{

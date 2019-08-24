@@ -24,7 +24,7 @@ let userSchema = new mongoose.Schema({
     floors: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'Room'
+          ref: 'Floor'
         }
     ],
   },
