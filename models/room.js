@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-var findOrCreate = require('mongoose-findorcreate');
+const mongoose = require("mongoose");
+var findOrCreate = require("mongoose-findorcreate");
 
 let roomSchema = new mongoose.Schema({
-	room: {
-	  type: String,
+  room: {
+    type: String,
     required: true,
     unique: true,
     maxlength: 4
@@ -13,7 +13,7 @@ let roomSchema = new mongoose.Schema({
       score: {
         type: Number,
         min: 0,
-        max:5,
+        max: 5,
         default: 4
       },
       date: {
@@ -25,4 +25,4 @@ let roomSchema = new mongoose.Schema({
 
 roomSchema.plugin(findOrCreate);
 
-module.exports = mongoose.model('Room',roomSchema);
+module.exports = mongoose.model("Room", roomSchema);

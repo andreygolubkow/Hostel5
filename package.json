@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "start": "node bin/index"
+    "start": "node bin/index",
+    "pretty": "prettier --write \"**/*.js\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.2",
@@ -57,6 +58,7 @@
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-plugin-pwa": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
+    "prettier": "^1.18.2",
     "sass": "^1.17.4",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-meta": "^0.1.1",

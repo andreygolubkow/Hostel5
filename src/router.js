@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 import Index from "./views/Index";
 import Office from "./views/Admin/Office";
 import Peoples from "./views/Admin/Peoples/Peoples";
@@ -10,20 +10,20 @@ import Rooms from "./views/Admin/Rooms/Rooms";
 import RoomsListView from "./views/Admin/Rooms/RoomsListView";
 import RoomView from "./views/Admin/Rooms/RoomView";
 import Sanitary from "./views/Sanitary/Sanitary";
-import Floor from "./views/Sanitary/Floor/Floor"
-import FloorList from "./views/Sanitary/Floor/FloorList"
-import FloorView from "./views/Sanitary/Floor/FloorView"
+import Floor from "./views/Sanitary/Floor/Floor";
+import FloorList from "./views/Sanitary/Floor/FloorList";
+import FloorView from "./views/Sanitary/Floor/FloorView";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '',
+      path: "",
       component: Index
     },
     {
-      path: '/admin/',
+      path: "/admin/",
       component: Office,
       children: [
         {
@@ -35,7 +35,7 @@ export default new Router({
           component: () => import("./views/Admin/Message.vue")
         },
         {
-          path: 'peoples',
+          path: "peoples",
           component: Peoples,
           children: [
             {
@@ -58,7 +58,7 @@ export default new Router({
           ]
         },
         {
-          path: 'rooms',
+          path: "rooms",
           component: Rooms,
           children: [
             {
@@ -83,7 +83,7 @@ export default new Router({
       ]
     },
     {
-      path: '/sanitary/',
+      path: "/sanitary/",
       component: Sanitary,
       children: [
         {
@@ -91,7 +91,7 @@ export default new Router({
           component: () => import("./views/Sanitary/Index.vue")
         },
         {
-          path: 'floor',
+          path: "floor",
           component: Floor,
           children: [
             {
@@ -108,9 +108,8 @@ export default new Router({
               component: FloorView
             }
           ]
-
         }
-        ]
+      ]
     }
   ]
-})
+});

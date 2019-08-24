@@ -1,35 +1,37 @@
-'use strict';
-const mongoose = require('mongoose');
+"use strict";
+const mongoose = require("mongoose");
 
 const PeopleSchema = new mongoose.Schema(
   {
-    name: { type: String, default: '', trim: true, maxlength: 255 },
-    dob: { type: String, default: '', trim: true, maxlength: 12 },
-    faculty: { type: String, default: '', trim: true, maxlength: 12 },
-    group: { type: String, default: '', trim: true, maxlength: 12 },
-    phone: { type: String, default: '', trim: true, maxlength: 12 },
-    citizen: { type: String, default: '', trim: true, maxlength: 12 },
-    room: { type: String, default: '', trim: true, maxlength: 4 },
-    sex: { type: String, default: '', trim: true, maxlength: 1 },
-    eduForm: { type: String, default: '', trim: true, maxlength: 10 },
-    rate: { type: Number, default: 0, trim: true},
+    name: { type: String, default: "", trim: true, maxlength: 255 },
+    dob: { type: String, default: "", trim: true, maxlength: 12 },
+    faculty: { type: String, default: "", trim: true, maxlength: 12 },
+    group: { type: String, default: "", trim: true, maxlength: 12 },
+    phone: { type: String, default: "", trim: true, maxlength: 12 },
+    citizen: { type: String, default: "", trim: true, maxlength: 12 },
+    room: { type: String, default: "", trim: true, maxlength: 4 },
+    sex: { type: String, default: "", trim: true, maxlength: 1 },
+    eduForm: { type: String, default: "", trim: true, maxlength: 10 },
+    rate: { type: Number, default: 0, trim: true },
     notes: [
       {
-        text: { type: String, default: '', maxlength: 1000 },
-        date: { type: String, default: '', maxlength: 1000 }
+        text: { type: String, default: "", maxlength: 1000 },
+        date: { type: String, default: "", maxlength: 1000 }
       }
     ],
-  createdAt: { type: Date, default: Date.now }
-}, {timestamps: true});
+    createdAt: { type: Date, default: Date.now }
+  },
+  { timestamps: true }
+);
 
 /**
  * Validations
  */
-PeopleSchema.path('name').required(true, 'People name required');
+PeopleSchema.path("name").required(true, "People name required");
 /**
  * Pre-remove hook
  */
-PeopleSchema.pre('remove', function(next) {
+PeopleSchema.pre("remove", function(next) {
   next();
 });
 
@@ -44,7 +46,7 @@ PeopleSchema.methods = {
       date: note.date
     });
     return this.save();
-  },
+  }
 };
 
 /**
@@ -60,8 +62,7 @@ PeopleSchema.statics = {
    */
 
   load: function(_id) {
-    return this.findOne({ _id })
-      .exec();
+    return this.findOne({ _id }).exec();
   },
 
   /**
@@ -83,4 +84,4 @@ PeopleSchema.statics = {
   }
 };
 
-module.exports =mongoose.model('People', PeopleSchema);
+module.exports = mongoose.model("People", PeopleSchema);

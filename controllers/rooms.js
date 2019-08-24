@@ -1,40 +1,48 @@
-let app = new (require('express').Router)();
+let app = new (require("express")).Router();
 const models = require("../models");
-var moment = require('moment');
-var XLSX = require('xlsx');
-const formidable = require('formidable');
+var moment = require("moment");
+var XLSX = require("xlsx");
+const formidable = require("formidable");
 
-app.get('/api/room', function(req,res,next)
-{
-  models.People.aggregate([{$group: {
+app.get("/api/room", function(req, res, next) {
+  models.People.aggregate([
+    {
+      $group: {
         _id: "$room",
-        peoples: { $push: {
+        peoples: {
+          $push: {
             faculty: "$faculty",
             citizen: "$citizen"
-          } }
-      }}])
-      .exec().then((d) => (res.json(d)));
+          }
+        }
+      }
+    }
+  ])
+    .exec()
+    .then(d => res.json(d));
 });
 
-app.get('/api/room/:room',(req, res, next)=>{
+app.get("/api/room/:room", (req, res, next) => {
   //if(!req.user) return res.redirect('/login');
-  models.People
-    .where({room: req.params.room})
-    .exec().then((d) => (res.json({
-      room: req.params.room,
-      peoples: d
-  })));
+  models.People.where({ room: req.params.room })
+    .exec()
+    .then(d =>
+      res.json({
+        room: req.params.room,
+        peoples: d
+      })
+    );
 });
 
-app.get('/api/room/:room/note',(req, res, next)=>{
+app.get("/api/room/:room/note", (req, res, next) => {
   //if(!req.user) return res.redirect('/login');
-  models.RoomNote
-    .find( { room: { $eq: req.params.room } } )
-    .sort( { createdAt: -1 } )
-    .exec().then((d) => (res.json(d)));
+  models.RoomNote.find({ room: { $eq: req.params.room } })
+    .sort({ createdAt: -1 })
+    .exec()
+    .then(d => res.json(d));
 });
 
-app.post('/api/room/:room/note',(req, res, next)=>{
+app.post("/api/room/:room/note", (req, res, next) => {
   //if(!req.user) return res.redirect('/login');/
 
   let note = new models.RoomNote({
@@ -44,13 +52,12 @@ app.post('/api/room/:room/note',(req, res, next)=>{
     date: `${moment().format("DD.MM.YYYY")}`
   });
 
-  note.save()
-    .then(()=>{
+  note
+    .save()
+    .then(() => {
       res.json(note);
-    }).catch(next);
+    })
+    .catch(next);
 });
 
-
-
 module.exports = app;
-

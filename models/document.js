@@ -1,23 +1,25 @@
-'use strict';
-const mongoose = require('mongoose');
+"use strict";
+const mongoose = require("mongoose");
 
 const DocumentSchema = new mongoose.Schema(
   {
-    name: { type: String, default: '', trim: true, maxlength: 255 },
-    url: { type: String, default: '', trim: true, maxlength: 255 },
-    public: { type: Boolean, default: false},
+    name: { type: String, default: "", trim: true, maxlength: 255 },
+    url: { type: String, default: "", trim: true, maxlength: 255 },
+    public: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now }
-}, {timestamps: true});
+  },
+  { timestamps: true }
+);
 
 /**
  * Validations
  */
-DocumentSchema.path('name').required(true, 'Name required');
-DocumentSchema.path('url').required(true, 'Url required');
+DocumentSchema.path("name").required(true, "Name required");
+DocumentSchema.path("url").required(true, "Url required");
 /**
  * Pre-remove hook
  */
-DocumentSchema.pre('remove', function(next) {
+DocumentSchema.pre("remove", function(next) {
   next();
 });
 
@@ -38,8 +40,7 @@ DocumentSchema.statics = {
    */
 
   load: function(_id) {
-    return this.findOne({ _id })
-      .exec();
+    return this.findOne({ _id }).exec();
   },
 
   /**
@@ -61,4 +62,4 @@ DocumentSchema.statics = {
   }
 };
 
-module.exports =mongoose.model('Document', DocumentSchema);
+module.exports = mongoose.model("Document", DocumentSchema);

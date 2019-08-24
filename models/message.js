@@ -1,25 +1,27 @@
-'use strict';
-const mongoose = require('mongoose');
+"use strict";
+const mongoose = require("mongoose");
 
 const MessageSchema = new mongoose.Schema(
   {
-    from: { type: String, default: 'anonym', trim: true, maxlength: 255 },
-    subject: { type: String, default: '', trim: true, maxlength: 255 },
-    text: { type: String, default: '', trim: true, maxlength: 255 },
-    answer: { type: String, default: '', trim: true, maxlength: 255 },
-    public: { type: Boolean, default: false},
+    from: { type: String, default: "anonym", trim: true, maxlength: 255 },
+    subject: { type: String, default: "", trim: true, maxlength: 255 },
+    text: { type: String, default: "", trim: true, maxlength: 255 },
+    answer: { type: String, default: "", trim: true, maxlength: 255 },
+    public: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now }
-}, {timestamps: true});
+  },
+  { timestamps: true }
+);
 
 /**
  * Validations
  */
-MessageSchema.path('text').required(true, 'Text required');
-MessageSchema.path('from').required(true, 'From required');
+MessageSchema.path("text").required(true, "Text required");
+MessageSchema.path("from").required(true, "From required");
 /**
  * Pre-remove hook
  */
-MessageSchema.pre('remove', function(next) {
+MessageSchema.pre("remove", function(next) {
   next();
 });
 
@@ -40,8 +42,7 @@ MessageSchema.statics = {
    */
 
   load: function(_id) {
-    return this.findOne({ _id })
-      .exec();
+    return this.findOne({ _id }).exec();
   },
 
   /**
@@ -63,4 +64,4 @@ MessageSchema.statics = {
   }
 };
 
-module.exports =mongoose.model('Message', MessageSchema);
+module.exports = mongoose.model("Message", MessageSchema);
