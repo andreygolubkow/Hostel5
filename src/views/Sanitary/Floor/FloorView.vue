@@ -63,7 +63,7 @@ export default {
     id: 0
   }),
   methods: {
-    fetchData() {
+    fetchData(link) {
       axios
         .get(`${BACKEND_URL}floor`)
         .then(res => {
@@ -75,10 +75,11 @@ export default {
                   sanitation: this.getLast5(r.sanitation)
               }))
           }));
-          console.log(this.floor);
         })
         .then(() => {
-          this.$vuetify.goTo(`[room="${this.id}"]`, {});
+            if (link) {
+                this.$vuetify.goTo(`[room="${this.id}"]`, {});
+            }
         });
     },
       setScore(room, score) {
@@ -87,7 +88,7 @@ export default {
               date: date,
               score: score
           }).then((data) => {
-              room['todayScore'] = score;
+              this.fetchData();
           });
       },
       getLast5(o) {
