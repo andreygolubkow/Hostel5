@@ -6,9 +6,9 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['app', 'deploy', 'app.yaml']
     env:
-      - 'MONGO_URI= _MONGO_URI'
-      - 'RECAPTCHA= _RECAPTCHA'
-      - 'VKONTAKTE_APP_ID= _VKONTAKTE_APP_ID'
-      - 'VKONTAKTE_APP_SECRET= _VKONTAKTE_APP_SECRET'
-      - 'VK_CALLBACK= _VK_CALLBACK'
-      - 'SECRET= _SECRET'
+      - 'MONGO_URI= $_MONGO_URI'
+      - 'RECAPTCHA= $_RECAPTCHA'
+      - 'VKONTAKTE_APP_ID= $_VKONTAKTE_APP_ID'
+      - 'VKONTAKTE_APP_SECRET= $_VKONTAKTE_APP_SECRET'
+      - 'VK_CALLBACK= $_VK_CALLBACK'
+      - 'SECRET= $_SECRET'
