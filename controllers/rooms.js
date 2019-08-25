@@ -60,4 +60,19 @@ app.post("/api/room/:room/note", (req, res, next) => {
     .catch(next);
 });
 
+app.post("/api/room/:room/score", (req, res, next) => {
+  //if(!req.user) return res.redirect('/login');/
+
+  models.Room.findById(req.params.room).then((room) => {
+
+    const san = room.sanitation;
+    san[req.body.date] = req.body.score;
+
+    models.Room.findAndModify({_id: room._id}, {sanitation: san}).then( (room) => {
+        res.json(room);
+    });
+  }).catch(next);
+});
+
+
 module.exports = app;

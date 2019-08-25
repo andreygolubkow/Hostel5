@@ -10,7 +10,7 @@
           >
             <v-sheet color="cyan" tile>
               <v-sparkline
-                :value="[3, 4, 4, 5, 5]"
+                :value="getLast5(room.sanitation)"
                 auto-draw
                 color="white"
                 height="150"
@@ -25,19 +25,19 @@
             </v-sheet>
 
             <v-card-text>
-              <span class="text--primary">
-                <v-container> <span>Иванов Олег</span><br /> </v-container>
+              <span v-if="r.todayScore" class="text--primary">
+                Оценка {{r.todayScore}}
               </span>
             </v-card-text>
 
             <v-card-actions>
-              <v-btn text color="green" icon small>5</v-btn>
+              <v-btn @click="setScore(r,5)" text color="green" icon small>5</v-btn>
 
-              <v-btn text color="blue" icon small>4</v-btn>
+              <v-btn @click="setScore(r,4)" text color="blue" icon small>4</v-btn>
 
-              <v-btn text color="orange" icon small>3</v-btn>
+              <v-btn @click="setScore(r,3)" text color="orange" icon small>3</v-btn>
 
-              <v-btn text small color="red" icon>2</v-btn>
+              <v-btn @click="setScore(r,2)" text small color="red" icon>2</v-btn>
             </v-card-actions>
           </v-card>
         </v-container>
@@ -50,6 +50,7 @@
 import FloorCard from "../../../components/FloorCard";
 import axios from "axios";
 import { BACKEND_URL } from "../../../backend";
+import moment from "moment";
 
 export default {
   name: "FloorView",
@@ -68,7 +69,30 @@ export default {
         .then(() => {
           this.$vuetify.goTo(`[room="${this.id}"]`, {});
         });
-    }
+    },
+      setScore(room, score) {
+          const date = moment().format('DD.MM.YYYY');
+          axios.post(`${BACKEND_URL}room/${room._id}/score`, {
+              date: date,
+              score: score
+          }).then((data) => {
+              room['todayScore'] = score;
+          });
+      },
+      getLast5(o) {
+          let arr = o.keys();
+          arr.sort((a,b) => {
+                  if (moment(a).timestamp < moment(b).timestamp) {
+                      return -1
+                  } else if (moment(b).timestamp < moment(a).timestamp) {
+                      return 1;
+                  } else {
+                      return 0;
+                  }
+          });
+          const dates = arr.slice(-5);
+          return dates.map((d) => o[d]);
+      }
   },
   created() {
     this.fetchData();

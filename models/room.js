@@ -8,19 +8,7 @@ let roomSchema = new mongoose.Schema({
     unique: true,
     maxlength: 4
   },
-  sanitation: [
-    {
-      score: {
-        type: Number,
-        min: 0,
-        max: 5,
-        default: 4
-      },
-      date: {
-        type: String
-      }
-    }
-  ]
+  sanitation: {}
 });
 
 roomSchema.plugin(findOrCreate);

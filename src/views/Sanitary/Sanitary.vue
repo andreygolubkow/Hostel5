@@ -28,7 +28,7 @@
 
       <v-btn
         text
-        href="https://hostel5.herokuapp.com"
+        href="https://общага5.рф"
       >
         <span class="mr-2">Аккаунт</span>
       </v-btn>
