@@ -8,10 +8,11 @@
             :room="r._id"
             max-width="400"
           >
-            <v-sheet color="cyan" tile>
+            <v-sheet color="cyan" tile v-if="r.sanitation">
+
               <v-sparkline
-                v-if="r.sanitation"
-                :value="getLast5(r.sanitation)"
+                v-if="r.sanitation.length>0"
+                :value="r.sanitation"
                 auto-draw
                 color="white"
                 height="150"
@@ -20,9 +21,10 @@
                 smooth
               >
               </v-sparkline>
+
+
               <v-card-title class="align-end fill-height white--text"
-                >Комната {{ r.room }}</v-card-title
-              >
+                >Комната {{ r.room }}</v-card-title>
             </v-sheet>
 
             <v-card-text>
@@ -65,7 +67,15 @@ export default {
       axios
         .get(`${BACKEND_URL}floor`)
         .then(res => {
-          this.floor = res.data;
+          this.floor = res.data.map((fl) => ({
+              _id: fl._id,
+              rooms: fl.rooms.map((r) => ({
+                  _id: r._id,
+                  room: r.room,
+                  sanitation: this.getLast5(r.sanitation)
+              }))
+          }));
+          console.log(this.floor);
         })
         .then(() => {
           this.$vuetify.goTo(`[room="${this.id}"]`, {});
@@ -81,7 +91,10 @@ export default {
           });
       },
       getLast5(o) {
-          let arr = o.keys();
+        if (!o) {
+            return [];
+        }
+          let arr = Object.keys(o);
           arr.sort((a,b) => {
                   if (moment(a).timestamp < moment(b).timestamp) {
                       return -1

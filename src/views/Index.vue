@@ -15,7 +15,7 @@
         <v-btn
           text
           to="sanitary"
-          v-if="user.sanitary"
+          v-if="user.sanitary || user.admin"
         >
           <span class="mr-2">Санитария</span>
         </v-btn>
