@@ -9,6 +9,7 @@ const logger = new Logger(); //  Загрузить логгер!
 
 // Подключимся к серверу MongoDB
 const config = require("../config");
+logger.error(config.mongoUri);
 mongoose.connect(config.mongoUri, {
   poolSize: 10
   // Поставим количество подключений в пуле
