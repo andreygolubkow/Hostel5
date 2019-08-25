@@ -10,6 +10,7 @@
           >
             <v-sheet color="cyan" tile>
               <v-sparkline
+                v-if="room.sanitation"
                 :value="getLast5(room.sanitation)"
                 auto-draw
                 color="white"
