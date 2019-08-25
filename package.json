@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "start": "node bin/index",
-    "pretty": "prettier --write \"**/*.js\""
+    "pretty": "prettier --write \"**/*.js\"",
+    "create-env": "printenv > .env"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.2",
@@ -22,6 +23,7 @@
     "core-js": "^2.6.5",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
+    "dotenv": "^8.1.0",
     "ejs": "^2.6.2",
     "express": "~4.16.1",
     "express-session": "^1.15.6",

@@ -3,9 +3,9 @@ steps:
     args: ['install']
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run','build']
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', 'app.yaml', '--set-env-vars MONGO_URI=$_MONGO_URI, RECAPTCHA= $_RECAPTCHA, VKONTAKTE_APP_ID= $_VKONTAKTE_APP_ID, VKONTAKTE_APP_SECRET= $_VKONTAKTE_APP_SECRET,
-    VK_CALLBACK= $_VK_CALLBACK, SECRET= $_SECRET']
+  - name: node:10.15.1
+    entrypoint: npm
+    args: ["run", "create-env"]
     env:
       - 'MONGO_URI= $_MONGO_URI'
       - 'RECAPTCHA= $_RECAPTCHA'
@@ -13,3 +13,5 @@ steps:
       - 'VKONTAKTE_APP_SECRET= $_VKONTAKTE_APP_SECRET'
       - 'VK_CALLBACK= $_VK_CALLBACK'
       - 'SECRET= $_SECRET'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['app', 'deploy', 'app.yaml']
