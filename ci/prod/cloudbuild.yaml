@@ -12,3 +12,10 @@ steps:
       - 'VKONTAKTE_APP_SECRET=${_VKONTAKTE_APP_SECRET}'
       - 'VK_CALLBACK=${_VK_CALLBACK}'
       - 'SECRET=${_SECRET}'
+    substitutions:
+          _SECRET: test
+          _VK_CALLBACK: test
+          _VKONTAKTE_APP_SECRET: test
+          _VKONTAKTE_APP_ID: test
+          _RECAPTCHA: test
+          _MONGO_URI: test
