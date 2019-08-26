@@ -75,4 +75,29 @@ app.get("/api/search/people/", (req, res, next) => {
     .catch(next);
 });
 
+app.get("/api/search/rooms/bad", (req, res, next) => {
+  if (!req.user && !config.skipAuth) return res.json([]);
+  if (!req.user.admin && !req.user.sanitary) return res.json([]);
+
+  let filter = {};
+
+  models.Room.find({})
+    .then(result => {
+      const bad = result
+        .filter(r => r.sanitation && Object.keys(r.sanitation).length >1)
+        .filter(r => {
+          const len =  Object.keys(r.sanitation).length;
+          const key = Object.keys(r.sanitation)[len-1];
+          return r.sanitation[key] < 4
+        })
+        .filter(r => {
+          const len =  Object.keys(r.sanitation).length;
+          const key = Object.keys(r.sanitation)[len-2];
+          return r.sanitation[key] < 4
+        });
+      res.json(bad);
+    })
+    .catch(next);
+});
+
 module.exports = app;

@@ -94,7 +94,7 @@ app.post("/api/room/:room/score", (req, res, next) => {
 
   models.Room.findById(req.params.room)
     .then(room => {
-      const san = room.sanitation;
+      const san = room.sanitation ? room.sanitation : {};
       san[req.body.date] = req.body.score;
 
       models.Room.findOneAndUpdate(
