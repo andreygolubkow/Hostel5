@@ -6,7 +6,7 @@ const formidable = require("formidable");
 const config = require("../config");
 
 app.post("/api/people", function(req, res, next) {
-  if (!req.user && !config.skipAuth) return res.redirect("/login");
+  if (!req.user && !req.user.admin && !config.skipAuth) return res.json([]);
 
   if (req.query.type === "xlsx") {
     return importPeoples(req, res, next);
@@ -22,11 +22,10 @@ app.post("/api/people", function(req, res, next) {
 });
 
 function importPeoples(req, res, next) {
-  if (!req.user && !config.skipAuth) return res.redirect("/login");
+  if (!req.user && !req.user.admin && !config.skipAuth) return res.json([]);
 
   var form = new formidable.IncomingForm();
   form.parse(req, function(err, fields, files) {
-    console.log(fields);
     var f = files[Object.keys(files)[0]];
     var workbook = XLSX.readFile(f.path);
     const json = XLSX.utils.sheet_to_json(
@@ -35,16 +34,29 @@ function importPeoples(req, res, next) {
     );
     const peoples = [];
     json.forEach((v, i, a) => {
-      let people = new models.People(v);
-      people.save();
+      models.Room.findOrCreate({ room: v.room }, { room: v.room }).then(
+        roomDoc => {
+          if (!floorDoc.doc.rooms.find(rnp => r._id.equals(roomDoc.doc._id))) {
+            floorDoc.doc.rooms.push(roomDoc.doc);
+          }
+          floorDoc.doc.save().then(floor => {
+            v.room = roomDoc.doc._id;
+            let people = new models.People(v);
+            people.save();
+
+            if (i === json.length - 1) {
+              res.status(200);
+            }
+          });
+        }
+      );
     });
-    res.status(200);
   });
   res.status(501);
 }
 
 app.get("/api/people", function(req, res, next) {
-  if (!req.user && !config.skipAuth) return res.redirect("/login");
+  if (!req.user && !req.user.admin && !config.skipAuth) return res.json([]);
 
   models.People.find({})
     .sort({ name: 1 })
@@ -55,7 +67,7 @@ app.get("/api/people", function(req, res, next) {
 });
 
 app.get("/api/people/:id", (req, res, next) => {
-  if (!req.user && !config.skipAuth) return res.redirect("/login");
+  if (!req.user && !req.user.admin && !config.skipAuth) return res.json([]);
 
   models.People.findOne({
     _id: req.params.id
@@ -71,16 +83,16 @@ app.get("/api/people/:id", (req, res, next) => {
 });
 
 app.delete("/api/people/:id", (req, res, next) => {
-  if (!req.user && !config.skipAuth) return res.redirect("/login");
+  if (!req.user && !req.user.admin && !config.skipAuth) return res.json([]);
 
   models.People.deleteOne({ _id: req.params.id }, function(err) {
-    if (err) return handleError(err);
+    if (err) return res.status(500);
   });
   res.status(200);
 });
 
 app.post("/api/people/:id/rate", (req, res, next) => {
-  if (!req.user && !config.skipAuth) return res.redirect("/login");
+  if (!req.user && !req.user.admin && !config.skipAuth) return res.json([]);
 
   if (!req.body) return res.sendStatus(400);
   var id = req.params.id; // получаем id
@@ -97,7 +109,7 @@ app.post("/api/people/:id/rate", (req, res, next) => {
 });
 
 app.post("/api/people/:id/note", (req, res, next) => {
-  if (!req.user && !config.skipAuth) return res.redirect("/login");
+  if (!req.user && !req.user.admin && !config.skipAuth) return res.json([]);
 
   if (!req.body) return res.sendStatus(400);
   var id = req.params.id; // получаем id

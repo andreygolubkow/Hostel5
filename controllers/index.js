@@ -4,12 +4,9 @@ const logger = new Logger();
 let app = new (require("express")).Router();
 
 app.use(require("./auth"));
-app.use(require("./post"));
 app.use(require("./peoples"));
 app.use(require("./rooms"));
 app.use(require("./search"));
-app.use(require("./message"));
-app.use(require("./document"));
 app.use(require("./cabinet"));
 app.use(require("./user"));
 app.use(require("./floor"));

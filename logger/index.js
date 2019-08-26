@@ -3,7 +3,8 @@ const util = require("util"); //util.inspect()
 const path = require("path"); //path.relative() path.sep
 const projectname = require("../package").name; //package.json -> project name
 
-module.exports = class Logger { // Класс логера :)
+module.exports = class Logger {
+  // Класс логера :)
   constructor() {
     function generateLogFunction(level) {
       // Функция генератор функий логгера :)

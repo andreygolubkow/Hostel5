@@ -4,9 +4,10 @@ var moment = require("moment");
 var XLSX = require("xlsx");
 const formidable = require("formidable");
 
-// Нужен параметр q
 app.get("/api/search/notes/query", (req, res, next) => {
-  //if(!req.user) return res.redirect('/login');
+  if (!req.user && !config.skipAuth) return res.json([]);
+  if (!req.user.admin && !req.user.sanitary) return res.json([]);
+
   if (!req.query.q) return res.json([]);
 
   models.RoomNote.where({ text: req.query.q })
@@ -15,7 +16,8 @@ app.get("/api/search/notes/query", (req, res, next) => {
 });
 
 app.get("/api/search/notes/lastweek", (req, res, next) => {
-  //if(!req.user) return res.redirect('/login');
+  if (!req.user && !config.skipAuth) return res.json([]);
+  if (!req.user.admin && !req.user.sanitary) return res.json([]);
 
   // Ищем заметки со среды, т.к. собрания по вторникам
   const weekday = 3;
@@ -29,12 +31,14 @@ app.get("/api/search/notes/lastweek", (req, res, next) => {
   }
   tuesday = tuesday.set({ hours: 14, minute: 0, millisecond: 0 });
   models.RoomNote.find({ createdAt: { $gt: tuesday.format() } })
+    .populate("room")
     .then(result => res.json(result))
     .catch(next);
 });
 
 app.get("/api/search/notes/lastmonth", (req, res, next) => {
-  //if(!req.user) return res.redirect('/login');
+  if (!req.user && !config.skipAuth) return res.json([]);
+  if (!req.user.admin && !req.user.sanitary) return res.json([]);
 
   var tuesday = moment()
     .utc()
@@ -46,7 +50,8 @@ app.get("/api/search/notes/lastmonth", (req, res, next) => {
 });
 
 app.get("/api/search/people/notes/lastmonth", (req, res, next) => {
-  //if(!req.user) return res.redirect('/login');
+  if (!req.user && !config.skipAuth) return res.json([]);
+  if (!req.user.admin && !req.user.sanitary) return res.json([]);
 
   var month = moment()
     .utc()
@@ -58,7 +63,9 @@ app.get("/api/search/people/notes/lastmonth", (req, res, next) => {
 });
 
 app.get("/api/search/people/", (req, res, next) => {
-  //if(!req.user) return res.redirect('/login');
+  if (!req.user && !config.skipAuth) return res.json([]);
+  if (!req.user.admin && !req.user.sanitary) return res.json([]);
+
   if (!req.query.q) return res.json([]);
   const q = req.query.q;
   if (q.length < 3) return res.json([]);

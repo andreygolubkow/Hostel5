@@ -21,7 +21,6 @@ app.get("/api/floor", function(req, res, next) {
       .then(f => {
         res.json(f);
       });
-    return;
   }
 });
 
