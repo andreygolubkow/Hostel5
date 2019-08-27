@@ -17,7 +17,7 @@
           to="sanitary"
           v-if="user.sanitary || user.admin"
         >
-          <span class="mr-2">Санитария</span>
+          <span class="mr-2">СанКомиссия</span>
         </v-btn>
       </v-app-bar>
     <v-content>

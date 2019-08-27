@@ -23,16 +23,14 @@
           <v-list-item to="/sanitary/floor">
             <v-list-item-title>Этаж</v-list-item-title>
           </v-list-item>
+          <v-list-item href="https://общага5.рф/api/export/sanitary" target="_blank">
+            <v-list-item-title>Экспорт</v-list-item-title>
+          </v-list-item>
+          <v-list-item href="https://общага5.рф">
+            <v-list-item-title>Аккаунт</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
-
-      <v-btn
-        text
-        href="https://общага5.рф"
-      >
-        <span class="mr-2">Аккаунт</span>
-      </v-btn>
-
     </v-app-bar>
 
     <v-content>

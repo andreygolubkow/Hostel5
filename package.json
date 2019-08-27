@@ -25,6 +25,7 @@
     "debug": "~2.6.9",
     "dotenv": "^8.1.0",
     "ejs": "^2.6.2",
+    "excel4node": "^1.7.2",
     "express": "~4.16.1",
     "express-session": "^1.15.6",
     "formidable": "^1.2.1",
