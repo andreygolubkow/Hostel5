@@ -95,15 +95,10 @@ export default {
         if (!o) {
             return [];
         }
-          let arr = Object.keys(o);
-          arr.sort((a,b) => {
-                  if (moment(a).timestamp < moment(b).timestamp) {
-                      return -1
-                  } else if (moment(b).timestamp < moment(a).timestamp) {
-                      return 1;
-                  } else {
-                      return 0;
-                  }
+          let arr = [];
+          arr.push(...Object.keys(o));
+          arr.sort(function (left, right) {
+              return moment.utc(left, "DD.MM.YYYY").diff(moment.utc(right, "DD.MM.YYYY"))
           });
           const dates = arr.slice(-5);
           return dates.map((d) => o[d]);

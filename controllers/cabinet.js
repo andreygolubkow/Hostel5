@@ -1,6 +1,7 @@
 let app = new (require("express")).Router();
 let models = require("../models");
 const model = require("../models");
+const moment = require("moment");
 
 app.get("/cabinet/", function(req, res, next) {
   if (!req.user) return res.redirect("/");
@@ -8,6 +9,22 @@ app.get("/cabinet/", function(req, res, next) {
   if (req.user.room.length === 0) return res.redirect("/cabinet/setroom");
   models.Room.findById(req.user.room).then(room => {
     models.Floor.findOne({ rooms: req.user.room }).then(floor => {
+
+      let arr = [];
+      arr.push(...Object.keys(room.sanitation));
+      arr.sort(function (left, right) {
+        return moment.utc(left, "DD.MM.YYYY").diff(moment.utc(right, "DD.MM.YYYY"))
+      });
+      let score = [];
+      arr.forEach(k => {
+          score.push({
+            date: k,
+            score: room.sanitation[k]
+          });
+      });
+      room.sanitation = score;
+
+      console.log(room);
       res.render("cabinet/index", {
         user: req.user,
         floor: floor,

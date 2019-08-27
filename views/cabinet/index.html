@@ -106,28 +106,21 @@
           <div class="typography-line">
 
             <% if (room.sanitation) {
-              room.sanitation.forEach(function(s){
+            for (var i = 0; i < room.sanitation.length; i++) {
+              const s = room.sanitation;
+              const colors = [
+                ``,
+              `label-primary`,
+              `label-danger`,
+              `label-warning`,
+              `label-info`,
+              `label-success`
+              ]
 
-              function getColor(san) {
-                  switch (san.score) {
-                  case 1:
-                  return `label-primary`;
-                  case 2:
-                  return `label-danger`;
-                  case 3:
-                  return `label-warning`;
-                  case 4:
-                  return `label-info`;
-                  case 5:
-                  return `label-success`;
-                  default:
-                  return ``;
-                  }
-              }
             %>
-                <span class="label <%= getColor(s) %>"><%= s.date%></span>
+                <span class="label <%= colors[s[i].score] %>"><%= s[i].date%></span>
 
-            <% });
+            <% }
             }
             %>
 
