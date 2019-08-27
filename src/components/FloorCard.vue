@@ -20,8 +20,8 @@
               <v-list-item v-for="(r, index) in floor.rooms" :to="`${r._id}`">
                 <v-list-item-content>
                   <v-list-item-title>{{r.room}}</v-list-item-title>
-                  <v-list-item-subtitle v-if="r.sanitation && r.sanitation.length>0">
-                    Последняя оценка: {{r.sanitation[r.sanitation.length]}}
+                  <v-list-item-subtitle v-if="r.sanitation">
+                    Оценок Object.keys(r.sanitation).length
                   </v-list-item-subtitle>
                   <v-list-item-subtitle v-else>
                     Нет оценок
