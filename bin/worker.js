@@ -15,9 +15,16 @@ const passport = require("passport"); // Инициализация датаба
 let app = express();
 // Создадим новый сервер
 // Время ответа
+
+app.use (function (req, res, next) {
+  if (req.secure) {
+    next();
+  } else {
+    res.redirect('https://' + req.headers.host + req.url);
+  }
+});
+
 app.use(require("./rt"));
-console.log("MONGO MONGO MONGO MONGO");
-console.log(process.env.MONGO_URI);
 
 app.use("/office", express.static(path.join(__dirname, "../dist")));
 app.use("/assets", express.static(path.join(__dirname, "../assets")));
