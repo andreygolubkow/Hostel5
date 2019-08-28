@@ -9,7 +9,8 @@ let roomSchema = new mongoose.Schema({
     maxlength: 4
   },
   sanitation: {
-    type: Object
+    type: Object,
+    default: {}
   }
 });
 

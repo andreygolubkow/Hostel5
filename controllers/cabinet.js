@@ -92,7 +92,7 @@ app.post("/cabinet/setroom", function(req, res, next) {
       { room: req.body.room },
       { room: req.body.room }
     ).then(roomDoc => {
-      if (!floorDoc.doc.rooms.find(rnp => r._id.equals(roomDoc.doc._id))) {
+      if (!floorDoc.doc.rooms.find(rnp => rnp._id.equals(roomDoc.doc._id))) {
         floorDoc.doc.rooms.push(roomDoc.doc);
       }
       floorDoc.doc.save().then(floor => {
