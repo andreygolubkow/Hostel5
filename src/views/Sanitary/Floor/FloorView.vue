@@ -28,8 +28,8 @@
             </v-sheet>
 
             <v-card-text>
-              <span v-if="r.todayScore" class="text--primary">
-                Оценка {{r.todayScore}}
+              <span v-if="r.allScore && r.allScore[todayDate] !== null" class="text--primary">
+                Сегодня: {{r.allScore[todayDate]}}
               </span>
             </v-card-text>
 
@@ -41,6 +41,8 @@
               <v-btn @click="setScore(r,3)" text color="orange" icon small>3</v-btn>
 
               <v-btn @click="setScore(r,2)" text small color="red" icon>2</v-btn>
+
+              <v-btn @click="setScore(r,0)" text small color="black" icon>Н</v-btn>
             </v-card-actions>
           </v-card>
         </v-container>
@@ -72,7 +74,8 @@ export default {
               rooms: fl.rooms.map((r) => ({
                   _id: r._id,
                   room: r.room,
-                  sanitation: this.getLast5(r.sanitation)
+                  sanitation: this.getLast5(r.sanitation),
+                  allScore: r.sanitation
               }))
           }));
         })
@@ -116,6 +119,11 @@ export default {
       deep: true,
       immediate: true
     }
-  }
+  },
+    computed: {
+      todayDate () {
+          return moment().format('DD.MM.YYYY').toString();
+        }
+    }
 };
 </script>
