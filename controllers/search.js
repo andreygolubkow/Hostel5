@@ -84,16 +84,16 @@ app.get("/api/search/rooms/bad", (req, res, next) => {
   models.Room.find({})
     .then(result => {
       const bad = result
-        .filter(r => r.sanitation && Object.keys(r.sanitation).length >1)
+        .filter(r => r.sanitation && Object.keys(r.sanitation).length > 1)
         .filter(r => {
-          const len =  Object.keys(r.sanitation).length;
-          const key = Object.keys(r.sanitation)[len-1];
-          return r.sanitation[key] < 4
+          const len = Object.keys(r.sanitation).length;
+          const key = Object.keys(r.sanitation)[len - 1];
+          return r.sanitation[key] < 4;
         })
         .filter(r => {
-          const len =  Object.keys(r.sanitation).length;
-          const key = Object.keys(r.sanitation)[len-2];
-          return r.sanitation[key] < 4
+          const len = Object.keys(r.sanitation).length;
+          const key = Object.keys(r.sanitation)[len - 2];
+          return r.sanitation[key] < 4;
         });
       res.json(bad);
     })
