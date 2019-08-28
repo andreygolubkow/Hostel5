@@ -21,7 +21,7 @@
                 <v-list-item-content>
                   <v-list-item-title>{{r.room}}</v-list-item-title>
                   <v-list-item-subtitle v-if="r.sanitation">
-                    Оценок Object.keys(r.sanitation).length
+                    Оценок {{Object.keys(r.sanitation).length}}
                   </v-list-item-subtitle>
                   <v-list-item-subtitle v-else>
                     Нет оценок
