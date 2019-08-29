@@ -32,17 +32,16 @@ const importPeoples = withAsync(async (req, res) => {
     workbook.Sheets[workbook.SheetNames[0]],
     { header: 0 }
   );
-  const peoples = [];
 
   const filtered = json.filter(filterData);
-/*
+
   for (let xls of filtered) {
     await saveData(xls);
   }
-*/
+
   // альтернативный варинат
   // обрабатываем не больее 10 строк за раз
-  await Bluebird.map(filtered, saveData, { concurrency: 10 });
+  //await Bluebird.map(filtered, saveData, { concurrency: 10 });
 
   res.json({ msg: "success" });
 });
