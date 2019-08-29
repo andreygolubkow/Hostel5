@@ -8,6 +8,7 @@ const Bluebird = require("bluebird");
 const multer = require("multer");
 var storage = multer.memoryStorage();
 var upload = multer({ storage: storage });
+var parseExcelDate = require('../libs/excelUtils');
 
 const withAsync = fn => (req, res, next) => fn(req, res, next).catch(next);
 
@@ -49,7 +50,7 @@ const importPeoples = withAsync(async (req, res) => {
 const saveData = async xls => {
   const v = {
     name: xls.name ? `${xls.name}` : "",
-    dob: xls.dob ? `${xls.dob}` : null,
+    dob: xls.dob ? moment(parseExcelDate(xls.dob)).format('DD.MM.YYYY') : null,
     faculty: xls.faculty ? `${xls.faculty}` : null,
     group: xls.group ? `${xls.group}` : null,
     phone: xls.phone ? `${xls.phone}` : null,
