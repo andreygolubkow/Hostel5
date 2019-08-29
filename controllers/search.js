@@ -68,9 +68,13 @@ app.get("/api/search/people/", (req, res, next) => {
 
   if (!req.query.q) return res.json([]);
   const q = req.query.q;
-  if (q.length < 3) return res.json([]);
+  if (q.length < 4) return res.json([]);
 
   models.People.find({ name: { $regex: `.*${q}.*` } })
+    .populate({
+      path: "room",
+      model: "Room"
+    })
     .then(result => res.json(result))
     .catch(next);
 });

@@ -32,13 +32,13 @@
                 ></v-text-field>
               </v-card-title>
               <v-card-text>
-                <v-list-item v-for="(res,i) in searchResults" two-line dense :to="{ name: 'people-view', params: { id: res._id }}">
+                <v-list-item v-for="(res,i) in searchResults" two-line dense>
                   <v-list-item-content>
                     <v-list-item-title>
                       {{res.name}}
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                      {{res.room}}
+                      к.{{res.room.room}}
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>

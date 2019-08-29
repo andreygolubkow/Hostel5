@@ -69,7 +69,7 @@ export default {
       axios
         .get(`${BACKEND_URL}floor`)
         .then(res => {
-          this.floor = res.data.map((fl) => ({
+          return  res.data.map((fl) => ({
               _id: fl._id,
               rooms: fl.rooms.map((r) => ({
                   _id: r._id,
@@ -79,12 +79,45 @@ export default {
               }))
           }));
         })
+        .then(fl => {
+            const sorted = this.sortFloorRooms(fl);
+            this.floor = sorted;
+            return this.floor;
+        })
         .then(() => {
             if (link) {
                 this.$vuetify.goTo(`[room="${this.id}"]`, {});
             }
+            return;
         });
     },
+      sortFloorRooms(floors) {
+          floors.sort((a,b) => {
+              const aI = Number(a.floor);
+              const bI = Number(b.floor);
+              if (aI < bI) {
+                  return -1;
+              } else if (aI > bI) {
+                  return 1;
+              } else {
+                  return 0;
+              }
+          });
+          floors.forEach((f) => {
+              f.rooms.sort((a,b) => {
+                  const aI = Number(a.room);
+                  const bI = Number(b.room);
+                  if (aI < bI) {
+                      return -1;
+                  } else if (aI > bI) {
+                      return 1;
+                  } else {
+                      return 0;
+                  }
+              });
+          });
+          return floors;
+      },
       setScore(room, score) {
           const date = moment().format('DD.MM.YYYY');
           axios.post(`${BACKEND_URL}room/${room._id}/score`, {

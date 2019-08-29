@@ -20,7 +20,7 @@ const isAdmin = (req, res, next) => {
   }
 };
 
-const filterData = xls => xls.name && xls.citizen && xls.room;
+const filterData = xls => xls.name && xls.room && (xls.citizen ||  xls.phone || xls.sex || xls.eduForm);
 
 const importPeoples = withAsync(async (req, res) => {
   const file = req.files[0];
@@ -83,8 +83,11 @@ const saveData = async xls => {
 
   v.room = roomDoc.doc._id;
 
-  const people = new models.People(v);
-  await people.save();
+  const update = await models.People.findOneAndUpdate({name: v.name, dob: v.dob}, v, {new: true});
+  if (!update) {
+    const people = new models.People(v);
+    await people.save();
+  }
 };
 
 app.post("/api/people", isAdmin, upload.any(), importPeoples);
