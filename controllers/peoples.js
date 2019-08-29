@@ -20,7 +20,7 @@ const isAdmin = (req, res, next) => {
   }
 };
 
-const filterData = xls => xls.name && xls.sex && xls.room;
+const filterData = xls => xls.name && xls.citizen && xls.room;
 
 const importPeoples = withAsync(async (req, res) => {
   const file = req.files[0];
