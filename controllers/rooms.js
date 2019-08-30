@@ -6,33 +6,33 @@ const formidable = require("formidable");
 
 app.get("/api/room", function(req, res, next) {
   if (!req.user && !config.skipAuth) return res.json([]);
-  /*models.People.aggregate([
-    {
-      $group: {
-        _id: "$room",
-        peoples: {
-          $push: {
-            faculty: "$faculty",
-            citizen: "$citizen"
-          }
-        }
-      }
-    }
-  ])
-    .exec()
-    .then(d => res.json(d));
-*/
+
   if (req.user.admin) {
-    models.Room.find({}).then(r => res.json(r));
+    return  models.Room.find({}).then(r => {
+      r.sort(function compareFunction( a, b ) {
+        const r1 = Number.parseFloat(a.room);
+        const r2 = Number.parseFloat(b.room);
+        if ( r1<r2) {
+          return -1;
+        }
+        if ( r1>r2) {
+          return 1;
+        }
+        return 0;
+      });
+      return res.json(r);
+    });
   }
 
   if (req.user.sanitary) {
     models.User.findById(req.user._id)
       .populate("sanitary.floors")
       .then(f => {
-        const mapped = f.map(fl => fl.rooms);
+        if (!f) return res.json([]);
+        var mapped = f.sanitary.floors.map(fl => fl.rooms);
 
         const arr = [];
+
         mapped.forEach((a, b, c) => {
           arr.push(...mapped);
         });
@@ -45,18 +45,17 @@ app.get("/api/room/:room", (req, res, next) => {
   if (!req.user && !config.skipAuth) return res.json([]);
   if (!req.user.admin && !req.user.sanitary) return res.json([]);
 
-  models.Room.findById(req.params.room).then(r => res.json(r));
-
-  /*
-  models.People.where({ room: req.params.room })
-    .exec()
-    .then(d =>
-      res.json({
-        room: req.params.room,
-        peoples: d
-      })
-    );
-   */
+  models.Room.findById(req.params.room)
+    .then(r => {
+      return models.People.find({room: {$eq: r._id}})
+        .then(p => {
+          var room = Object.assign({
+            peoples: p
+          }, r._doc);
+          return room;
+        });
+    })
+    .then(r => (res.json(r)));
 });
 
 app.get("/api/room/:room/note", (req, res, next) => {

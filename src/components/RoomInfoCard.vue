@@ -40,7 +40,9 @@
                   @click.stop="peopleClick(people)"
                 >
                   <v-list-item-avatar>
-                    <v-img src="https://avatars.mds.yandex.net/get-pdb/2011865/d5f09e42-e045-4605-8bf2-cfe03f5aba87/s1200"></v-img>
+                    <v-icon v-if="people.sex === 'М'">fa-male</v-icon>
+                    <v-icon v-else-if="people.sex === 'Ж'">fa-female</v-icon>
+                    <v-icon v-else>fa-asterisk</v-icon>
                   </v-list-item-avatar>
 
                   <v-list-item-content>

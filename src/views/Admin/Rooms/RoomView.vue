@@ -259,6 +259,11 @@
                     short: 'Нет плитки'
                 },
                 {
+                    text: 'Проблемы с удлинителем(лежит поперек комнаты/система из удлинителей)',
+                    level: 3,
+                    short: 'Проблемы с удлинителем'
+                },
+                {
                     text: 'Были замечены за курением в комнате',
                     level: 4,
                     short: 'Курение'
@@ -296,8 +301,8 @@
                     .then(response => (this.rooms = response.data))
                     .then(() => {
                         this.rooms.sort(function compareFunction( a, b ) {
-                            const r1 = Number.parseFloat(a._id);
-                            const r2 = Number.parseFloat(b._id);
+                            const r1 = Number.parseFloat(a.room);
+                            const r2 = Number.parseFloat(b.room);
                             if ( r1<r2) {
                                 return -1;
                             }
@@ -310,6 +315,9 @@
                 axios
                     .get(`${BACKEND_URL}room/${id}`)
                     .then(response => (this.room = response.data));
+                axios
+                    .get(`${BACKEND_URL}room/${id}/note`)
+                    .then(response => (this.notes = response.data));
                 axios
                     .get(`${BACKEND_URL}room/${id}/note`)
                     .then(response => (this.notes = response.data));

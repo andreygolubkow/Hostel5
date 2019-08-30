@@ -86,7 +86,7 @@
   <!-- Control Center for Paper Kit: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
   <script type="text/javascript">
-    if (document.location.protocol !== "https" && document.location.host !== "localhost:8080") {
+    if (document.location.protocol.includes("https") && document.location.host !== "localhost:8080") {
         document.location.href = "https://общага5.рф";
     }
   </script>
