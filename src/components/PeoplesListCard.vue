@@ -12,11 +12,11 @@
         <v-card v-if="peoples">
           <v-list three-line>
             <v-container v-if="!editor">
-              <v-list-item v-for="(p, index) in peoples" :to="`${p._id}`">
+              <v-list-item v-for="(p, index) in peoples" :to="{ name: 'people-view', params: { id: p._id }}">
                 <v-list-item-content>
                   <v-list-item-title>{{p.name}}</v-list-item-title>
                   <v-list-item-subtitle>
-                    {{`к.${p.room}, ${p.faculty}, ${p.group}`}}
+                    {{`к.${p.room.room}, ${p.faculty}, ${p.group}`}}
                   </v-list-item-subtitle>
                   <v-list-item-subtitle v-if="!p.notes || p.notes.length === 0">
                     {{`Заметок: ${p.notes.length}`}}
@@ -43,7 +43,7 @@
                   <v-btn icon @click="trashClick(p._id)">
                     <v-icon color="grey lighten-1">fa-trash</v-icon>
                   </v-btn>
-                  <v-btn icon :to="`${p._id}`">
+                  <v-btn icon :to="{ name: 'people-view', params: { id: p._id }}">
                     <v-icon color="grey lighten-1">fa-id-card</v-icon>
                   </v-btn>
                 </v-list-item-action>

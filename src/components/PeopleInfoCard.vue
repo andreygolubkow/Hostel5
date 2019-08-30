@@ -14,7 +14,7 @@
           <v-list-item>
             <v-list-item-content>
               <div class="overline">{{people._id}}</div>
-              <v-list-item-title class="headline mb-1">{{people.room}} {{people.name}}</v-list-item-title>
+              <v-list-item-title class="headline mb-1">{{people.room.room}} {{people.name}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -31,7 +31,7 @@
             Соседи:
             <ol>
               <li v-for="(f,index) in people.friends">
-                <router-link :to="`/office/peoples/${f._id}`">{{f.name}}</router-link>
+                <router-link :to="{ name: 'people-view', params: { id: f._id }}">{{f.name}}</router-link>
               </li>
             </ol>
           </v-card-text>

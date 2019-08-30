@@ -11,9 +11,9 @@
         <v-card v-if="rooms">
           <v-list three-line>
             <v-container>
-              <v-list-item v-for="(r, index) in rooms" :to="`${r._id}`">
+              <v-list-item v-for="(r, index) in rooms" :to="{ name: 'room-view', params: { id: r._id }}">
                 <v-list-item-content>
-                  <v-list-item-title>{{r._id}}</v-list-item-title>
+                  <v-list-item-title>{{r.room}}</v-list-item-title>
                   <v-list-item-subtitle>
                       <span v-for="(f,fi) in r.peoples">
                         {{f.faculty}}

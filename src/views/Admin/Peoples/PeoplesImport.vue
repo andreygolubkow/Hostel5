@@ -7,7 +7,7 @@
       Готово
 
     </v-alert>
-    <import-peoples-card v-on:sendFile="sendFile"></import-peoples-card>
+    <import-peoples-card v-on:sendPeoples="sendPeoples"></import-peoples-card>
   </div>
 </template>
 
@@ -20,14 +20,8 @@
         name: "PeoplesImport",
         components: {ImportPeoplesCard},
         methods: {
-            sendFile (file) {
-                var formData = new FormData();
-                formData.append("f", file);
-                axios.post(`${BACKEND_URL}people?type=xlsx`, formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }})
-                    .then(response => (this.showAlert = true));
+            sendPeoples (peoples) {
+
             }
         },
         data: () => ({

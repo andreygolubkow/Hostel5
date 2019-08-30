@@ -23,41 +23,19 @@ const isAdmin = (req, res, next) => {
 const filterData = xls => xls.name && xls.room && (xls.citizen ||  xls.phone || xls.sex || xls.eduForm);
 
 const importPeoples = withAsync(async (req, res) => {
-  const file = req.files[0];
-  if (!file) {
-    return res.status(400).json({ error: "file required" });
-  }
-  const workbook = XLSX.read(file.buffer);
-  const json = XLSX.utils.sheet_to_json(
-    workbook.Sheets[workbook.SheetNames[0]],
-    { header: 0 }
-  );
 
-  const filtered = json.filter(filterData);
-
-  for (let xls of filtered) {
-    await saveData(xls);
+  if (!req.body) {
+    res.json({ msg: "error" });
   }
 
-  // альтернативный варинат
-  // обрабатываем не больее 10 строк за раз
-  //await Bluebird.map(filtered, saveData, { concurrency: 10 });
+  var people = req.body;
 
-  res.json({ msg: "success" });
+  const data = await saveData(people);
+
+  res.json(data);
 });
 
-const saveData = async xls => {
-  const v = {
-    name: xls.name ? `${xls.name}` : "",
-    dob: xls.dob ? moment(parseExcelDate(xls.dob)).format('DD.MM.YYYY') : null,
-    faculty: xls.faculty ? `${xls.faculty}` : null,
-    group: xls.group ? `${xls.group}` : null,
-    phone: xls.phone ? `${xls.phone}` : null,
-    citizen: xls.citizen ? `${xls.citizen}` : null,
-    room: xls.room ? `${xls.room}` : "000",
-    sex: xls.sex ? `${xls.sex}` : null,
-    eduForm: xls.eduForm ? `${xls.eduForm}` : null
-  };
+const saveData = async v => {
 
   const floorDoc = await models.Floor.findOrCreate(
     { floor: v.room[0] },
@@ -86,11 +64,12 @@ const saveData = async xls => {
   const update = await models.People.findOneAndUpdate({name: v.name, dob: v.dob}, v, {new: true});
   if (!update) {
     const people = new models.People(v);
-    await people.save();
+    return await people.save();
   }
+  return update;
 };
 
-app.post("/api/people", isAdmin, upload.any(), importPeoples);
+app.post("/api/people", isAdmin, importPeoples);
 
 function addPeople(xls) {
   return new Promise(function(resolve, reject) {
@@ -146,6 +125,10 @@ app.get("/api/people", function(req, res, next) {
   if (!req.user && !req.user.admin && !config.skipAuth) return res.json([]);
 
   models.People.find({})
+    .populate({
+    path: "room",
+    model: "Room"
+  })
     .sort({ name: 1 })
     .then(p => {
       res.json(p);
@@ -158,6 +141,9 @@ app.get("/api/people/:id", (req, res, next) => {
 
   models.People.findOne({
     _id: req.params.id
+  }).populate({
+    path: "room",
+    model: "Room"
   })
     .exec()
     .then(p => {
