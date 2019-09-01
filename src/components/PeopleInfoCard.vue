@@ -13,8 +13,8 @@
         >
           <v-list-item>
             <v-list-item-content>
-              <div class="overline">{{people._id}}</div>
-              <v-list-item-title class="headline mb-1">{{people.room.room}} {{people.name}}</v-list-item-title>
+              <div class="overline"><a :to="{ name: 'room-view', params: { id: people.room._id }}">{{people.room.room}}</a> </div>
+              <v-list-item-title class="headline mb-1">{{people.name}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 

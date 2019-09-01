@@ -37,7 +37,7 @@
 
                 <v-list-item
                   :key="index"
-                  @click.stop="peopleClick(people)"
+                  :to="{ name: 'people-view', params: { id: people._id }}"
                 >
                   <v-list-item-avatar>
                     <v-icon v-if="people.sex === 'М'">fa-male</v-icon>
