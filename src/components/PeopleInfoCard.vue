@@ -13,7 +13,7 @@
         >
           <v-list-item>
             <v-list-item-content>
-              <div class="overline"><a :to="{ name: 'room-view', params: { id: people.room._id }}">{{people.room.room}}</a> </div>
+              <div class="overline">{{people.room.room}}</div>
               <v-list-item-title class="headline mb-1 body-1">{{people.name}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -26,7 +26,11 @@
             {{people.citizen}}
             <a :href="`tel:${people.phone}`">{{people.phone}}</a>
           </v-card-text>
-
+          <v-card-text>
+            <router-link :to="{ name: 'room-view', params: { id: people.room._id }}">
+              Посмотреть комнату
+            </router-link>
+          </v-card-text>
           <v-card-text>
             Соседи:
             <ol>
