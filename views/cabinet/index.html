@@ -37,7 +37,7 @@
           <li class="nav-item">
             <a class="nav-link"><%= user.name %></a>
           </li>
-          <% if (user.admin) { %>
+          <% if (user.admin || user.sanitary) { %>
             <li class="nav-item">
               <a href="../office/" class="nav-link">Панель управления</a>
             </li>

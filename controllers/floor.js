@@ -16,10 +16,18 @@ app.get("/api/floor", function(req, res, next) {
     return;
   }
   if (req.user.sanitary) {
+
     models.User.findById(req.user._id)
-      .populate("sanitary.floors")
+      .populate({
+        path: "sanitary.floors",
+        model: "Floor",
+        populate: {
+          path: "rooms",
+          model: "Room"
+        }
+      })
       .then(f => {
-        res.json(f);
+        res.json(f.sanitary.floors);
       });
     return;
   }
