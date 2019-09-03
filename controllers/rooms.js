@@ -26,7 +26,14 @@ app.get("/api/room", function(req, res, next) {
 
   if (req.user.sanitary) {
     models.User.findById(req.user._id)
-      .populate("sanitary.floors")
+      .populate({
+        path:"sanitary.floors",
+        model: "Floor",
+        populate: {
+          path:"rooms",
+          model: "Room"
+        }
+      })
       .then(f => {
         if (!f) return res.json([]);
         var mapped = f.sanitary.floors.map(fl => fl.rooms);

@@ -45,6 +45,10 @@ app.get("/api/search/notes/lastmonth", (req, res, next) => {
     .subtract(1, "month");
 
   models.RoomNote.find({ createdAt: { $gt: tuesday.format() } })
+    .populate({
+      path: "room",
+      model: "Room"
+    })
     .then(result => res.json(result))
     .catch(next);
 });
@@ -57,7 +61,11 @@ app.get("/api/search/people/notes/lastmonth", (req, res, next) => {
     .utc()
     .subtract(1, "month");
 
-  models.People.find({ updatedAt: { $gt: month.format() } })
+  models.RoomNote.find({ createdAt: { $gt: month.format() } })
+    .populate({
+      path: "room",
+      model: "Room"
+    })
     .then(result => res.json(result))
     .catch(next);
 });

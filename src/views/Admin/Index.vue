@@ -5,7 +5,7 @@
           <v-row class="pa-1 ma-2" align="center">
             <v-card
                 v-if="monthNotesByRoom.length > 0"
-                class="mt-2 pa-1 ma-2 mx-auto col-5"
+                class="mt-2 pa-1 ma-2 mx-auto col-sm-5 col-xs-12"
                 max-width="800"
               >
                 <v-sheet
@@ -30,7 +30,7 @@
                   <div class="subheading font-weight-light grey--text">Данные за месяц</div>
                 </v-card-text>
               </v-card>
-              <v-card xs3 v-if="monthNotesByRoom.length > 0" class="mt-2 pa-1 ma-2 mx-auto col-5">
+              <v-card xs3 v-if="monthNotesByRoom.length > 0" class="mt-2 pa-1 ma-2 mx-auto col-sm-5 col-xs-12">
                 <v-card-title>
                   <v-row justify="space-between">
                     <v-col class="title mb-2">Комната</v-col>
@@ -38,10 +38,10 @@
                   </v-row>
                 </v-card-title>
                 <v-list>
-                  <v-list-item v-for="(top,i) in top3inMonth" :to="{ name: 'room-view', params: { id: top.room }}">
+                  <v-list-item v-for="(top,i) in top3inMonth" :to="{ name: 'room-view', params: { id: top.room._id }}">
                     <v-list-item-title >
                       <v-row justify="space-between">
-                        <v-col>{{top.room}}</v-col>
+                        <v-col>{{top.room.room}}</v-col>
                         <v-col class="text-right">{{top.count}}</v-col>
                       </v-row>
                     </v-list-item-title>
@@ -51,17 +51,17 @@
           </v-row>
 
           <v-row>
-            <v-card  class="mt-2 pa-1 ma-2 mx-auto col-5"
+            <v-card  class="mt-2 pa-1 ma-2 mx-auto col-sm-5 col-xs-12"
             :color="levelToColor(2)" v-if="notesByLevel(2).length !== 0">
 
-                <v-list-item dense two-line v-for="(note,i) in notesByLevel(2)" :to="{ name: 'room-view', params: { id: note.room }}">
+                <v-list-item dense two-line v-for="(note,i) in notesByLevel(2)" :to="{ name: 'room-view', params: { id: note.room._id }}">
                   <v-list-item-content>
                   <v-list-item-title >
                     {{note.text}}
                   </v-list-item-title>
                   <v-list-item-subtitle>
                     <v-row justify="space-between">
-                      <v-col>{{note.room}}</v-col>
+                      <v-col>{{note.room.room}}</v-col>
                       <v-col class="text-right">{{formatTime(note.createdAt)}}</v-col>
                     </v-row>
                   </v-list-item-subtitle>
@@ -69,7 +69,7 @@
                 </v-list-item>
             </v-card>
 
-            <v-card class="mt-2 pa-1 ma-2 mx-auto col-5">
+            <v-card class="mt-2 pa-1 ma-2 mx-auto col-sm-5 col-xs-12">
               <v-card-title>
                 <v-text-field
                   label="Поиск людей"
@@ -87,7 +87,7 @@
                       {{res.name}}
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                      {{res.room}}
+                      {{res.room.room}}
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -130,7 +130,7 @@
                     .then(response => (this.weekNotes = response.data))
                     .then(() => {
                         for (var i = 1; i <= 45; i++) {
-                            this.weekNotesByRoom.push( this.weekNotes.filter((n) => (n.room.slice(-2) === `${i}`)));
+                            this.weekNotesByRoom.push( this.weekNotes.filter((n) => (n.room.room.slice(-2) === `${i}`)));
                         }
                     });
 
@@ -138,8 +138,9 @@
                     .get(`${BACKEND_URL}search/notes/lastmonth`)
                     .then(response => (this.monthNotes = response.data))
                     .then(() => {
+                        this.monthNotesByRoom = [];
                         for (var i = 3; i <= 45; i++) {
-                            this.monthNotesByRoom.push( this.monthNotes.filter((n) => (n.room.slice(-2) === `${i}`)));
+                            this.monthNotesByRoom.push( this.monthNotes.filter((n) => (n.room.room.slice(-2) === `${i}`)));
                         }
                     });
             },
@@ -185,7 +186,7 @@
             },
             top3inMonth () {
                 const arr = this.monthNotesByRoom.filter(o=>(o.length>0)).map(o => ({room: o[0].room, count: o.length}));
-                arr.sort((a,b) => (a-b));
+                arr.sort((a,b) => (a.count-b.count));
                 return arr.slice(-3);
             }
         }
