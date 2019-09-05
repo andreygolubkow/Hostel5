@@ -11,6 +11,7 @@ app.use(require("./cabinet"));
 app.use(require("./user"));
 app.use(require("./floor"));
 app.use(require("./export"));
+app.use(require("./report"));
 
 app.get("/", function(req, res, next) {
   if (req.user) return res.redirect("/cabinet");

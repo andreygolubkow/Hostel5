@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Отчет - <%= floor.floor%> этаж</title>
+</head>
+<body style="text-align: center;">
+  <h2>Отчет</h2>
+  <h3><%= floor.floor%> этаж</h3>
+  <h3>Период: <%= dates.start%> - <%= dates.end%></h3>
+
+  <h4>Заявки</h4>
+
+<% for (var n=0; n<(notes.length); n++) {%>
+  <% if (notes[n].level === 2) { %>
+    <p>
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+      <%= notes[n].date %>
+      <b>к.<%= notes[n].room.room %></b>
+      <%= notes[n].text %>
+    </p>
+  <% } %>
+<% } %>
+
+
+
+  <h4>Санитарное состояние</h4>
+  <!---Цикл по датам -->
+<% for (var w=0; n<(week.length); w++) {%>
+
+  <% for (var n=0; n<(floor.rooms.length); n++) {%>
+  <p>
+    <% if (floor.rooms[n].sanitation[week[w]]) { %>
+      <%= floor.rooms[n].sanitation[week[w]] %>
+    <% } %>
+  </p>
+  <% } %>
+<% } %>
+
+<style type="text/css">
+  body {
+    margin: 1cm 1cm 1cm 3cm;
+  }
+</style>
+</body>
+</html>
