@@ -31,6 +31,7 @@
 
   <% for (var n=0; n<(floor.rooms.length); n++) {%>
   <p>
+    <%= floor.rooms[n].sanitation[week[w]] %>
     <% if (floor.rooms[n].sanitation[week[w]]) { %>
       <%= floor.rooms[n].sanitation[week[w]] %>
     <% } %>

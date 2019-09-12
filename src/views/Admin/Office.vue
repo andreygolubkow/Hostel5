@@ -29,6 +29,9 @@
           <v-list-item to="/admin/rooms">
             <v-list-item-title>Комнаты</v-list-item-title>
           </v-list-item>
+          <v-list-item to="/admin/users">
+            <v-list-item-title>Пользователи</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
 

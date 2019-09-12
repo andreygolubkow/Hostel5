@@ -181,7 +181,7 @@
                     .then(response => (this.documents = response.data)); */
 
                 axios
-                    .get(`${BACKEND_URL}user`)
+                    .get(`${BACKEND_URL}me`)
                     .then(response => (this.user = response.data));
             }
         },

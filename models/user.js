@@ -28,7 +28,24 @@ let userSchema = new mongoose.Schema({
       }
     ]
   },
-  floorHead: { type: Boolean, default: false }
+  inspector: {
+    type: Object,
+    floors: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Floor"
+      }
+    ]
+  },
+  floorHead: {
+    type: Object,
+    floors: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Floor"
+      }
+    ]
+  },
 });
 
 // Теперь подключим плагины (внешнии модули)

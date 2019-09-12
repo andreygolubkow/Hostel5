@@ -13,6 +13,9 @@ import Sanitary from "./views/Sanitary/Sanitary";
 import Floor from "./views/Sanitary/Floor/Floor";
 import FloorList from "./views/Sanitary/Floor/FloorList";
 import FloorView from "./views/Sanitary/Floor/FloorView";
+import Users from "./views/Admin/Users/Users";
+import UserListView from "./views/Admin/Users/UserListView";
+import UserView from "./views/Admin/Users/UserView";
 
 Vue.use(Router);
 
@@ -54,6 +57,25 @@ export default new Router({
               path: ":id",
               name: "people-view",
               component: PeopleView
+            }
+          ]
+        },
+        {
+          path: "users",
+          component: Users,
+          children: [
+            {
+              path: "",
+              redirect: "list"
+            },
+            {
+              path: "list",
+              component: UserListView
+            },
+            {
+              path: ":id",
+              name: "user-view",
+              component: UserView
             }
           ]
         },
