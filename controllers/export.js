@@ -8,7 +8,7 @@ const xl = require("excel4node");
 
 app.get("/api/export/sanitary", function(req, res, next) {
   if (!req.user && !config.skipAuth) return res.json([]);
-  if (req.user.sanitary || req.user.admin) {
+  if (req.user.sanitary || req.user.admin || req.user.inspector) {
     models.User.findById(req.user._id)
       .populate([
         {
@@ -18,17 +18,32 @@ app.get("/api/export/sanitary", function(req, res, next) {
             model: "Room",
             path: "rooms"
           }
+        },
+        {
+          model: "Floor",
+          path: "inspector.floors",
+          populate: {
+            model: "Room",
+            path: "rooms"
+          }
         }
       ])
       .then(f => {
         var wb = new xl.Workbook();
+        var source;
+        if (f.sanitary && f.sanitary.floors) {
+          source = f.sanitary.floors;
+        }
+        if (f.inspector && f.sanitary.floors && f.sanitary.floors>0) {
+          source = f.inspector.floors
+        }
         for (
           var fCounter = 0;
-          fCounter < f.sanitary.floors.length;
+          fCounter < source.length;
           fCounter++
         ) {
           const titleIndex = 1;
-          const floor = f.sanitary.floors[fCounter];
+          const floor = source[fCounter];
           const rooms = floor.rooms;
           rooms.sort(function(left, right) {
             if (left.room < right.room) {
