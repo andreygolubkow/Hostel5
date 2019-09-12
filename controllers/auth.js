@@ -42,21 +42,9 @@ passport.serializeUser(function(user, done) {
 
 // ДеСериализация паспорта
 passport.deserializeUser(function(id, done) {
-  models.User.findById(id)
-    .populate({
-      model: "Room",
-      path: "room"
-    })
-    .populate({
-      model: "Floor",
-      path: "sanitary.floors"
-    })
-    .populate({
-      model: "Floor",
-      path: "inspector.floors"
-    })
-    .then(data,err => (done(err, data)))
-    .catch(e => next)
+  models.User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 
 app.get(
