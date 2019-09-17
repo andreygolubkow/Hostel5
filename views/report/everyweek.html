@@ -25,17 +25,14 @@
 
 
 
-  <h4>Санитарное состояние</h4>
-  <!---Цикл по датам -->
-<% for (var w=0; n<(week.length); w++) {%>
+  <h4>Проблемы с сан. состоянием</h4>
 
-  <% for (var n=0; n<(floor.rooms.length); n++) {%>
-  <p>
-    <%= floor.rooms[n].sanitation[week[w]] %>
-    <% if (floor.rooms[n].sanitation[week[w]]) { %>
-      <%= floor.rooms[n].sanitation[week[w]] %>
+  <!---Цикл по датам -->
+<% for (var w=0; w < week.length; w++) {%>
+  <% for (var n=0; n < floor.rooms.length; n++) {%>
+    <% if (floor.rooms[n].sanitation && floor.rooms[n].sanitation[week[w]] === 2) { %>
+      <p><i class="fa fa-calendar" aria-hidden="true"></i><%=week[w] %> Комната <%=floor.rooms[n].room %> </p>
     <% } %>
-  </p>
   <% } %>
 <% } %>
 

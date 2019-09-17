@@ -35,14 +35,14 @@ app.get("/report/:floor/everyweek", function(req, res, next) {
             end: moment().format("DD.MM.YYYY")
           },
           week: [
-            tuesday.format("DD.MM.YYYY"),
-            moment(tuesday).add(1, 'days').format("DD.MM.YYYY"),
-            moment(tuesday).add(2, 'days').format("DD.MM.YYYY"),
-            moment(tuesday).add(3, 'days').format("DD.MM.YYYY"),
-            moment(tuesday).add(4, 'days').format("DD.MM.YYYY"),
-            moment(tuesday).add(5, 'days').format("DD.MM.YYYY"),
-            moment(tuesday).add(6, 'days').format("DD.MM.YYYY"),
-            moment(tuesday).add(7, 'days').format("DD.MM.YYYY"),
+            `${tuesday.format("DD.MM.YYYY")}`,
+            `${moment(tuesday).add(1, 'days').format("DD.MM.YYYY")}`,
+            `${moment(tuesday).add(2, 'days').format("DD.MM.YYYY")}`,
+            `${moment(tuesday).add(3, 'days').format("DD.MM.YYYY")}`,
+            `${moment(tuesday).add(4, 'days').format("DD.MM.YYYY")}`,
+            `${moment(tuesday).add(5, 'days').format("DD.MM.YYYY")}`,
+            `${moment(tuesday).add(6, 'days').format("DD.MM.YYYY")}`,
+            `${moment(tuesday).add(7, 'days').format("DD.MM.YYYY")}`,
           ],
           notes: n,
           floor: floor
