@@ -117,6 +117,7 @@
     import VueRecaptcha from 'vue-recaptcha'
     import {BACKEND_URL} from "../backend";
     import axios from "axios";
+    import {MAIN_URL} from "../mainPage";
 
 
     export default {
@@ -182,7 +183,10 @@
 
                 axios
                     .get(`${BACKEND_URL}me`)
-                    .then(response => (this.user = response.data));
+                    .then((response) => {
+                        this.user = response.data;
+                        return this.user;
+                    })
             }
         },
         created() {

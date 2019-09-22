@@ -3,7 +3,11 @@ let app = new (require("express")).Router();
 let config = require("../config/");
 
 app.get("/api/me", function(req, res, next) {
-  res.json(req.user);
+  if (!req.user ) {
+    res.status(401);
+    return res.json([]);
+  }
+  return res.json(req.user);
 });
 
 app.get("/api/user/", function(req, res, next) {

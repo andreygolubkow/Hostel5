@@ -46,7 +46,9 @@
                   </v-list-item-avatar>
 
                   <v-list-item-content>
-                    <v-list-item-title v-html="`${people.name} ${people.rate}`"></v-list-item-title>
+                    <v-list-item-title>
+                      <v-icon v-if="room.users.filter(u=>u.people === people._id).length>0" x-small>fa-user</v-icon>
+                      {{people.name}} {{people.rate}}</v-list-item-title>
                     <v-list-item-subtitle v-html="`${people.group} ${people.faculty} ${people.eduForm} `"></v-list-item-subtitle>
                     <v-list-item-subtitle v-if="people.notes&& people.notes.length>0" v-html="`${people.notes[people.notes.length-1].text}`"></v-list-item-subtitle>
                   </v-list-item-content>

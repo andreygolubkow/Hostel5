@@ -46,6 +46,10 @@ let userSchema = new mongoose.Schema({
       }
     ]
   },
+  people: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "People"
+  }
 });
 
 // Теперь подключим плагины (внешнии модули)

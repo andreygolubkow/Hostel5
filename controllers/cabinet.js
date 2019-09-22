@@ -6,6 +6,7 @@ const moment = require("moment");
 app.get("/cabinet/", function(req, res, next) {
   if (!req.user) return res.redirect("/");
   if (!req.user.room) return res.redirect("/cabinet/setroom");
+  if (!req.user.people) return res.redirect("/cabinet/setpeople");
   if (req.user.room.length === 0) return res.redirect("/cabinet/setroom");
   models.Room.findById(req.user.room).then(room => {
     models.Floor.findOne({ rooms: req.user.room }).then(floor => {
@@ -74,6 +75,15 @@ app.get("/cabinet/setroom", function(req, res, next) {
   });
 });
 
+app.get("/cabinet/setpeople", function(req, res, next) {
+  if (!req.user) return res.redirect("/");
+  if (req.user.people) return res.redirect("../cabinet");
+
+  res.render("cabinet/setpeople", {
+    user: req.user
+  });
+});
+
 app.post("/cabinet/setroom", function(req, res, next) {
   if (!req.user) return res.redirect("/");
   if (req.user.room) return res.redirect("../cabinet");
@@ -114,5 +124,41 @@ app.post("/cabinet/setroom", function(req, res, next) {
     });
   });
 });
+
+app.post("/cabinet/setpeople", function(req, res, next) {
+  if (!req.user) return res.redirect("/");
+  if (req.user.people) return res.redirect("../cabinet");
+  if (!req.body.firstName || !req.body.name) return res.redirect("../cabinet/setpeople");
+
+
+  models.People.find({room: req.user.room})
+    .then(p => {
+      let filtered = p
+        .filter(people => people.name.includes(req.body.firstName));
+      if (filtered.length > 1) {
+        filtered = filtered.filter(people => people.name.includes(req.body.name));
+      }
+      if (filtered.length === 0) {
+        return null;
+      }
+      return filtered[0];
+    })
+    .then(p => {
+      if (p === null) {
+        const v = {
+          name: `${req.body.firstName} ${req.body.name}`,
+          room: req.user.room
+        };
+        let people = new models.People(v);
+        return people.save();
+      }
+      return p;
+    })
+    .then(p => {
+      return model.User.findOneAndUpdate({_id: req.user._id}, {people: p})
+    })
+    .then(u => (res.redirect("../cabinet")));
+});
+
 
 module.exports = app;

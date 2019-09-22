@@ -62,6 +62,15 @@ app.get("/api/room/:room", (req, res, next) => {
           return room;
         });
     })
+    .then(r => {
+      return models.User.find({room: {$eq: r._id}})
+        .then(p => {
+          var room = Object.assign({
+            users: p
+          }, r);
+          return room;
+        });
+    })
     .then(r => (res.json(r)));
 });
 
