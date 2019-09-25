@@ -14,7 +14,9 @@
           <v-container>
             <v-list-item v-for="(u, index) in users" :to="{ name: 'user-view', params: { id: u._id }}">
               <v-list-item-content>
-                <v-list-item-title>{{u.name}}</v-list-item-title>
+                <v-list-item-title>
+                  <v-icon v-if="u.people" x-small>fa-user</v-icon>
+                  {{u.name}}</v-list-item-title>
                 <v-list-item-subtitle>
                   {{`к.${u.room.room}, ${u.username}`}}
                 </v-list-item-subtitle>
